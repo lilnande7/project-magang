@@ -1,0 +1,547 @@
+body {
+    margin: 0;
+    font-family: 'Alegreya', serif;
+    background: #ffffff;
+    color: #1f2937;
+}
+
+h1 {
+    font-weight: 300;
+}
+
+h2 {
+    font-weight: 400;
+}
+
+h3 {
+    font-weight: 500;
+}
+
+.highlight-section h3 {
+    font-weight: 600;
+}
+
+.hero {
+    position: relative;
+    min-height: 90vh;
+    background: url('../img/perpusumn.jpeg') center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(14, 18, 36, 0.55),
+            rgba(3, 3, 22, 0.55));
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #ffffff;
+    max-width: 1000px;
+    padding: 30px;
+    
+}
+
+.hero-subtitle {
+    display: block;
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    opacity: 0.9;
+}
+.hero-content h3 {
+    /* font-family: 'Alegreya', serif; */
+    font-size: 36px;
+    /* font-weight: 700; */
+    line-height: 1.25;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0 0 8px 0;
+}
+
+.hero-content .layanan-sirkulasi {
+    font-size: 25px;
+    line-height: 1.7;
+    font-weight: 400;
+    margin-top: 25px;
+    color: #89A4BF;
+    margin: 0;
+}
+
+.hero-content .unit-dokumentasi {
+    font-size: 17px;
+    line-height: 1.7;
+    font-weight: 400;
+    color: #89A4BF;
+    margin: 0;
+}
+
+.hero-desc {
+    font-size: 18px;
+    margin-bottom: 32px;
+}
+
+.btn-primary {
+    background: #1e3a8a;
+    color: #fff;
+    padding: 12px 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+
+
+.library h2 {
+    font-size: 28px;
+    /* samain */
+    margin-bottom: 48px;
+}
+
+/* navbar */
+
+.navbar {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 200;
+    background: transparent;
+    
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 14px 24px;
+    transform: translateX(-25px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-logo img {
+    height: 48px;
+}
+
+/* menu navbar */
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 22px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.navbar-menu a:hover {
+    opacity: 0.8;
+}
+
+.navbar-menu li {
+    position: relative;
+}
+
+.navbar-menu li a {
+    font-family: 'Alegreya', serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    padding: 8px 0;
+}
+
+.navbar-menu li a:hover {
+    color: #0b5ed7;
+}
+
+/* ================================
+   DROPDOWN CONTAINER
+   ================================ */
+/* Wadah dropdown (kotak putih yang muncul) */
+.dropdown {
+    position: absolute; /* supaya bisa nempel ke navbar */
+    top: 100%;/* muncul tepat di bawah menu */
+    left: 0;
+    background: #ffffff; /* background dropdown */
+    min-width: 220px;/* lebar minimal */
+    padding: 12px 0;/* jarak atas & bawah isi */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;/* sudut membulat */
+    display: none;/* disembunyikan dulu */
+    z-index: 999;/* supaya di atas elemen lain */
+}
+
+
+/* ================================
+   DROPDOWN ITEM (LINK)
+   ================================ */
+/* Style dasar tiap item dropdown */
+.dropdown li a {
+    display: block; /* biar seluruh area bisa diklik */
+    position: relative;/* untuk ::before & ::after */
+    padding: 12px 20px 12px 28px;/* kiri lebih besar (untuk garis) */
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+
+.dropdown li a::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 0;
+    background: #0b5ed7;
+    border-radius: 2px;
+    transition: height 0.25s ease;
+}
+
+
+/* ================================
+   ICON PANAH KANAN
+   ================================ */
+/* Icon › di kanan */
+.dropdown li a::after {
+    content: "›";
+    position: absolute;
+    right: 16px;
+    opacity: 0;
+    /* disembunyikan dulu */
+    transition: opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+/* ================================
+   HOVER EFFECT
+   ================================ */
+/* Efek saat hover item dropdown */
+.dropdown li a:hover {
+    background: #f2f6ff;
+    color: #0b5ed7;
+    transform: translateX(4px);
+    /* geser halus ke kanan */
+}
+
+/* Tampilkan garis kiri saat hover */
+.dropdown li a:hover::before {
+    height: 60%;
+}
+
+/* Munculkan icon panah */
+.dropdown li a:hover::after {
+    opacity: 1;
+    transform: translateX(4px);
+}
+
+
+/* ================================
+   TAMPILKAN DROPDOWN
+   ================================ */
+/* Dropdown muncul saat hover parent */
+.has-dropdown:hover .dropdown {
+    display: block;
+}
+
+
+/* ================================
+   JUDUL DROPDOWN (LAYANAN KAMI)
+   ================================ */
+/* Teks parent dropdown (bukan link) */
+.dropdown-title {
+    color: #fff;
+    font-family: 'Alegreya', serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 8px 0;
+}
+
+
+/* PROFIL PERPUSTAKAAN */
+/* .highlight-card.about {
+    background-color: #ffffff;
+    color: #2c3e50;
+    
+} */
+
+/* LAYANAN UTAMA */
+/* .highlight-card.layanan {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+} */
+
+/* AKSES DIGITAL */
+/* .highlight-card.digital {
+    background-color: #ffffff;
+    color: #2c3e50;
+    border: 1px solid #e0e0e0;
+} */
+
+
+
+
+/* tentang kami  */
+
+.about {
+    padding: 80px 24px;
+}
+
+.about-container {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.about-content h2 {
+    font-size: 32px;
+    margin-bottom: 16px;
+}
+
+.about-content p {
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+
+/* coba grid */
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: transform .3s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 16px 18px 20px;
+}
+
+.card-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 10px 0;
+    line-height: 1.4;
+}
+
+.card-body p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.badge {
+    display: inline-block;
+    background: #f3b37c;
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #1a73e8;
+    text-decoration: none;
+}
+
+/* responsive yg grid card */
+@media (max-width: 992px) {
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* bagian berita */
+
+.news-section {
+    padding: 60px 80px;
+    background: #fff;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.news-card {
+    background: #fff;
+}
+
+.news-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.news-card h3 {
+    font-size: 18px;
+    margin: 15px 0 8px;
+    line-height: 1.4;
+}
+
+.news-date {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.news-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #444;
+}
+
+
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+/* footer */
+
+.site-footer {
+    background-color: #4e535e;
+    color: #e5e7eb;
+    padding: 64px 24px 24px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 48px;
+}
+
+.site-footer h3,
+.site-footer h4 {
+    color: #ffffff;
+    margin-bottom: 16px;
+}
+
+.footer-about p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #cbd5f5;
+   
+}
+
+
+
+.footer-links p {
+    font-size: 14px;
+        line-height: 1.7;
+        color: #cbd5f5;
+    
+}
+
+.footer-links {
+    padding-left: 40px;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #cbd5f5;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+}
+
+.footer-contact p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #cbd5f5;
+}
+
+.footer-contact {
+    transform: translateX(40px);
+}
+
+.footer-bottom {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.footer-logo {
+    margin-bottom: 12px;
+    margin-top: -8px;
+    /* NAIKKAN LOGO */
+}

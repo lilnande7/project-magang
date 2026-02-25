@@ -1,0 +1,230 @@
+/* HERO */
+.hubungikami-hero {
+    position: relative;
+    font-family: 'Alegreya', serif;
+    height: 380px;
+    background: url('../img/perpuslabbahasa.png') no-repeat;
+    background-size: cover;
+    background-position: 70% center;
+    display: flex;
+    align-items: flex-end;
+}
+
+.hubungikami-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(14, 18, 36, 0.45),
+            rgba(3, 3, 22, 0.55));
+}
+
+.hubungikami-hero-content {
+    position: relative;
+    padding: 60px;
+    color: #ffffff;
+    max-width: 700px;
+}
+
+.hubungikami-hero-content h1 {
+    font-size: 37px;
+    font-weight: 300;
+    margin-bottom: 12px;
+    margin-left: 20px;
+
+}
+
+.hubungikami-hero-content p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #cbd5f5;
+    margin-left: 20px;
+    margin-bottom: 100px;
+}
+
+
+
+/* form */
+
+.contact-section {
+    position: relative;
+    margin-top: -75px;
+    /* naik ke hero */
+    padding-bottom: 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.contact-card {
+    background: #fff;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 900px;
+    /* biar ga kegedean */
+    width: 100%;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+}
+
+.contact-image {
+    padding: 30px;
+    /* RONGGA dari card */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-inner {
+    width: 100%;
+    max-width: 320px;
+    /* KECILIN GAMBAR */
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.image-inner img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.contact-form {
+    padding: 40px;
+}
+
+.contact-form h2 {
+    margin-bottom: 6px;
+}
+
+.form-desc {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.btn-primary {
+    width: 100%;
+    margin-top: 10px;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    background: #094db1;
+    /* samain sama contoh */
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: #24047d;
+}
+
+
+@media (max-width: 768px) {
+    .contact-card {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-image {
+        padding: 24px;
+    }
+
+    .image-inner {
+        max-width: 260px;
+        margin: auto;
+    }
+}
+
+
+
+.contact-info h3 {
+    margin-bottom: 24px;
+    font-size: 20px;
+    padding-left: 0;
+        margin-left: -50px;
+        /* ke kiri */
+}
+
+.info-block {
+    margin-bottom: 24px;
+    padding-left: 0;
+    margin-left: -50px;    /* ke kiri */
+}
+
+.info-block strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.closed {
+    color: #c0392b;
+    font-weight: 600;
+}
+
+.info-block p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #555;
+}
+
+
+
+.location-section {
+    overflow-x: hidden;
+    /* PENTING */
+}
+
+.map-full-right {
+    margin-right: calc((100vw - 1200px) / -2);
+}
+
+.location-grid {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    align-items: stretch;
+}
+
+.map-wrap {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.map-wrap iframe {
+    width: 100%;
+    height: 420px;
+   
+    /* BIAR GEDE */
+    border: 0;
+}
+
+@media (max-width: 768px) {
+    .location-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .map-wrap iframe {
+        min-height: 300px;
+    }
+}

@@ -1,0 +1,188 @@
+/* ========================= */
+/* HERO PROFILE PERPUSTAKAAN */
+/* ========================= */
+
+
+
+
+.profile-hero {
+    position: relative;
+    height: 380px;
+    background: url('../img/perpuslabbahasa.png') no-repeat;
+    background-size: cover;
+    background-position: 70% center;
+    display: flex;
+    align-items: flex-end;
+}
+
+.profile-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(14, 18, 36, 0.45),
+            rgba(3, 3, 22, 0.55));
+}
+
+.profile-hero-content {
+    position: relative;
+    padding: 60px;
+    color: #ffffff;
+    max-width: 700px;
+}
+
+.profile-hero-content h1 {
+    font-size: 37px;
+    font-weight: 300;
+    margin-bottom: 12px;
+    margin-left: 20px;
+    
+}
+
+.profile-hero-content p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #cbd5f5;
+    margin-left: 20px;
+    margin-bottom: 80px;
+}
+
+
+/* ============================== */
+/* SEKILAS TENTANG PERPUSTAKAAN */
+/* ============================== */
+
+.profile-about {
+    padding: 100px 24px;
+    background: #ffffff;
+}
+
+.profile-about-container {
+    max-width: 1250px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 64px;
+    align-items: center;
+}
+
+.profile-about-text h2 {
+    font-size: 30px;
+    font-weight: 300;
+    margin-bottom: 24px;
+}
+
+.profile-about-text p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #4b5563;
+    margin-bottom: 16px;
+}
+
+.profile-about-image img {
+    width: 100%;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 992px) {
+    .profile-about-container {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-about-text {
+        order: 2;
+    }
+
+    .profile-about-image {
+        order: 1;
+    }
+}
+
+
+/* VISI MISI */
+
+.visi-misi {
+    padding: 80px 24px;
+    background: #ffffff;
+}
+
+.visi-misi-container {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: stretch;
+}
+
+/* VISI */
+.visi-box {
+    position: relative;
+    background: #c4d3d6;
+    border-radius: 16px;
+    overflow: hidden;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+}
+
+.visi-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(14, 18, 36, 0.6),
+            rgba(14, 18, 36, 0.6));
+}
+
+.visi-content {
+    position: relative;
+    padding: 40px;
+    color: #ffffff;
+}
+
+.visi-content h2 {
+    font-size: 32px;
+    margin-bottom: 5px;
+    font-weight: 400;
+}
+
+.visi-content p {
+    font-size: 17px;
+    line-height: 1.7;
+    max-width: 420px;
+    margin-bottom: 90px;
+}
+
+/* MISI */
+.misi-box {
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.misi-box h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+.misi-box ul {
+    padding-left: 20px;
+}
+
+.misi-box li {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #374151;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .visi-misi-container {
+        grid-template-columns: 1fr;
+    }
+
+    .visi-content p {
+        max-width: 100%;
+    }
+}
