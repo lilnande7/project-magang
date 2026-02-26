@@ -131,8 +131,16 @@ class NewsController extends Controller
             $validatedData['tags'] = null;
         }
         
-        // Handle featured image upload
-        if ($request->hasFile('featured_image')) {
+        // Handle remove current image
+        if ($request->has('remove_current_image') && $request->remove_current_image == '1') {
+            // Delete current image
+            if ($news->featured_image) {
+                Storage::disk('public')->delete($news->featured_image);
+            }
+            $validatedData['featured_image'] = null;
+        }
+        // Handle new featured image upload
+        elseif ($request->hasFile('featured_image')) {
             // Delete old image
             if ($news->featured_image) {
                 Storage::disk('public')->delete($news->featured_image);
@@ -143,6 +151,8 @@ class NewsController extends Controller
             $imagePath = $image->storeAs('news', $imageName, 'public');
             $validatedData['featured_image'] = $imagePath;
         }
+        // If no new image and no remove request, keep the existing image
+        // Don't set featured_image in validatedData to preserve existing value
         
         // Handle published_at
         if ($validatedData['status'] === 'published' && !$validatedData['published_at']) {
