@@ -2,7 +2,7 @@
 .layanan-hero {
     position: relative;
         height: 380px;
-        background: url('../img/perpuslabbahasa.png') no-repeat;
+        background: url('../images/perpuslabbahasa.png') no-repeat;
         background-size: cover;
         background-position: 70% center;
         display: flex;
@@ -22,15 +22,15 @@
             color: #ffffff;
             max-width: 700px;
         }
-    
+
         .layanan-hero-content h1 {
             font-size: 37px;
             font-weight: 300;
             margin-bottom: 12px;
             margin-left: 20px;
-    
+
         }
-    
+
         .layanan-hero-content p {
             font-size: 16px;
             line-height: 1.7;
@@ -39,9 +39,9 @@
             margin-bottom: 100px;
         }
 
-    
 
-    
+
+
 
 /* SECTION */
 .layanan-section,
@@ -159,7 +159,7 @@
 
 
 .detail-heading {
-    
+
     text-align: center;
     margin-bottom: 60px;
 }
