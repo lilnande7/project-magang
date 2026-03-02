@@ -39,7 +39,7 @@
                 <a href="https://digilib.ppicurug.ac.id" target="_blank" class="btn-hero-secondary">Katalog Online</a>
             </div>
 
-            <div class="hero-metrics">
+            {{-- <div class="hero-metrics">
                 <div class="metric-card">
                     <span class="metric-label">Koleksi</span>
                     <span class="metric-value">{{ number_format($stats['total_books'] ?? 0) }}</span>
@@ -56,14 +56,14 @@
                     <small>Aktif Terdaftar</small>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="hero-right">
             <div class="hero-card hero-hours" data-animate="fadeInUp" data-delay="200">
                 <div class="card-label">Jadwal Layanan</div>
                 <ul>
                     <li><span>Senin - Jumat</span><span>08.00 - 17.00</span></li>
-                    
+
                 </ul>
                 <p>Reservasi ruang baca dan layanan referensi daring tersedia melalui helpdesk.</p>
             </div>
