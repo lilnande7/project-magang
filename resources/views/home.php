@@ -3,7 +3,7 @@
 
 
 <?= $this->section('css') ?>
-<link rel="stylesheet" href="<?= base_url('assets/css/home.css') ?>">
+<link rel="stylesheet" href="<?= base_url('css/home.css?v='.time()) ?>">
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -15,9 +15,9 @@
 
     <div class="hero-content">
         <p class="unit-dokumentasi">Unit Perpustakaan</p>
-        <h3>
+        <h3 class="welcome-text">
             SELAMAT DATANG DI PERPUSTAKAAN
-            <br>POLITEKNIK PENERBANGAN INDONESIA CURUG</br>
+            <br>POLITEKNIK PENERBANGAN</br>
         </h3>
         <p class="layanan-sirkulasi">Layanan Sirkulasi & Referensi</p>
     </div>
