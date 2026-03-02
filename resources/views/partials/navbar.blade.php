@@ -11,7 +11,7 @@
             <li><a href="{{ route('profile') }}">PROFILE</a></li>
 
             <li class="has-dropdown">
-                <span class="dropdown-title">LAYANAN KAMI</span>
+                <span class="dropdown-title">INFORMASI</span>
                 <ul class="dropdown">
                     <li><a href="/agenda">Agenda Kegiatan</a></li>
                     <li><a href="/berita">Berita</a></li>
@@ -31,7 +31,7 @@
             </li>
             <li><a href="/eresource">E-RESOURCE</a></li>
             <li><a href="/kerjasama">KERJASAMA</a></li>
-            
+
             {{-- Authentication Menu --}}
             @auth
                 <li class="has-dropdown">
