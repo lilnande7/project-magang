@@ -1,188 +1,398 @@
-/* HERO */
-.layanan-hero {
+/* =============================================
+   HERO SECTION
+============================================= */
+.-hero {
     position: relative;
-        height: 380px;
-        background: url('../images/perpuslabbahasa.png') no-repeat;
-        background-size: cover;
-        background-position: 70% center;
-        display: flex;
-        align-items: flex-end;
-    }
-
-.layanan-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(rgba(14, 18, 36, 0.45),
-        rgba(3, 3, 22, 0.55));
-    }
-
-        .layanan-hero-content {
-            position: relative;
-            padding: 60px;
-            color: #ffffff;
-            max-width: 700px;
-        }
-
-        .layanan-hero-content h1 {
-            font-size: 37px;
-            font-weight: 300;
-            margin-bottom: 12px;
-            margin-left: 20px;
-
-        }
-
-        .layanan-hero-content p {
-            font-size: 16px;
-            line-height: 1.7;
-            color: #cbd5f5;
-            margin-left: 20px;
-            margin-bottom: 100px;
-        }
-
-
-
-
-
-/* SECTION */
-.layanan-section,
-.fasilitas-section {
-    padding: 80px 0;
+    min-height: 520px;
+    padding: 200px 24px 140px;
+    background: url('../images/perpuslabbahasa.png') center/cover no-repeat;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
 }
 
+.-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(3, 7, 18, 0.9), rgba(28, 126, 214, 0.45));
+    z-index: 0;
+}
 
-/* LAYANAN */
-.layanan-grid {
+.-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1220px;
+    margin: 0 auto;
+    width: 100%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 48px;
+}
+
+.-hero-copy {
+    color: #fff;
+}
+
+.-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 20px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.15);
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.3rem;
+    line-height: 1.2;
+    margin: 20px 0 16px;
+}
+
+.-hero p {
+    max-width: 620px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.hero-action-group {
+    margin-top: 32px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.btn-hero-primary,
+.btn-hero-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 26px;
+    border-radius: 999px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-hero-primary {
+    background: var(--accent);
+    color: #0f172a;
+    box-shadow: 0 15px 35px rgba(247, 183, 51, 0.35);
+}
+
+.btn-hero-secondary {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #fff;
+}
+
+.btn-hero-primary:hover,
+.btn-hero-secondary:hover {
+    transform: translateY(-2px);
+}
+
+.-hero-meta {
+    display: grid;
+    gap: 18px;
+}
+
+.hero-stat-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 18px;
+    padding: 28px;
+    color: #fff;
+    backdrop-filter: blur(12px);
+}
+
+.hero-stat-card span {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.hero-stat-card strong {
+    display: block;
+    font-size: 2rem;
+    margin: 12px 0 4px;
+}
+
+.hero-stat-card small {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* =============================================
+   SERVICES OVERVIEW
+============================================= */
+.services-overview {
+    padding: 90px 24px;
+    background: var(--background);
+}
+
+.service-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 24px;
 }
 
-.layanan-card {
-    background: #fff;
-    padding: 24px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+.service-card {
+    background: var(--card);
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: 0 15px 45px rgba(15, 23, 42, 0.08);
+    border: 1px solid rgba(148, 163, 184, 0.2);
 }
 
-/* FASILITAS */
-.fasilitas-card {
-    position: relative;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, .12);
-}
-
-.fasilitas-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top,
-            rgba(0, 0, 0, .65),
-            rgba(0, 0, 0, .15));
+.service-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: rgba(28, 126, 214, 0.12);
+    color: var(--primary);
     display: flex;
-    align-items: flex-end;
-    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    font-size: 1.2rem;
 }
 
+.service-card h3 {
+    margin: 0 0 10px;
+}
 
-.fasilitas-overlay h4 {
-    margin: 0;
+.service-card p {
+    color: var(--muted);
+    margin-bottom: 16px;
+}
+
+.service-card ul li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    color: var(--deep);
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.service-card ul li i {
+    color: var(--accent);
+    margin-top: 4px;
+}
+
+/* =============================================
+   EXPERIENCE SECTION
+============================================= */
+.experience-section {
+    padding: 90px 24px;
+    background: linear-gradient(135deg, rgba(3, 7, 18, 0.97), rgba(28, 126, 214, 0.6));
     color: #fff;
-    font-size: 18px;
+}
+
+.experience-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px;
+}
+
+.experience-illustration {
+    position: relative;
+}
+
+.experience-illustration img {
+    width: 100%;
+    border-radius: 24px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    object-fit: cover;
+}
+
+.experience-badge {
+    position: absolute;
+    bottom: -30px;
+    left: 30px;
+    background: var(--card);
+    color: var(--deep);
+    padding: 18px 24px;
+    border-radius: 18px;
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.2);
+}
+
+.experience-badge span {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.75rem;
+    color: var(--primary);
+}
+
+.experience-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    margin: 18px 0;
+}
+
+.experience-content p {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.experience-list {
+    margin-top: 32px;
+    display: grid;
+    gap: 16px;
+}
+
+.experience-list span {
     font-weight: 600;
 }
 
+/* =============================================
+   FACILITY DETAIL SECTION
+============================================= */
+.facility-detail-section {
+    padding: 90px 24px 110px;
+    background: #f4f6fb;
+}
 
-.fasilitas-grid {
+.facility-detail-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.facility-detail-card {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 36px;
-}
-
-.fasilitas-card img {
-    width: 100%;
-    height: 220px;
-        object-fit: cover;
-        display: block;
-
-}
-
-.fasilitas-intro {
-    max-width: 700px;
-    margin-bottom: 50px;
-}
-
-.fasilitas-intro h2 {
-    font-size: 28px;
-    margin-bottom: 12px;
-}
-
-.fasilitas-intro p {
-    font-size: 15px;
-    line-height: 1.7;
-    color: #555;
-}
-
-
-
-.fasilitas-detail-section {
-    padding: 80px 0;
-    background: #f5f7fb;
-    /* PEMISAH VISUAL */
-}
-
-.fasilitas-detail {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 48px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px;
     align-items: center;
-    max-width: 1100px;
-    margin: 0 auto 100px;
+    background: var(--card);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08);
 }
 
-.fasilitas-detail.reverse {
-    grid-template-columns: 0.9fr 1.1fr;
-}
-
-.fasilitas-detail.reverse .detail-image {
+.facility-detail-card.reverse .facility-image {
     order: 2;
 }
 
-
-.detail-image img {
+.facility-image img {
     width: 100%;
-    max-height: 420px;
+    height: 360px;
     object-fit: cover;
-    border-radius: 16px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .12);
+    border-radius: 18px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
-
-
-.detail-heading {
-
-    text-align: center;
-    margin-bottom: 60px;
+.facility-body {
+    color: var(--deep);
 }
 
-.detail-heading span {
-    font-size: 13px;
+.facility-tag {
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #0d0202;
+    letter-spacing: 3px;
+    font-size: 0.78rem;
+    color: var(--primary);
 }
 
-@media (max-width: 768px) {
+.facility-body h3 {
+    font-size: 2rem;
+    margin: 12px 0;
+}
 
-    .fasilitas-detail,
-    .fasilitas-detail.reverse {
+.facility-body p {
+    color: var(--muted);
+    margin-bottom: 18px;
+}
+
+.facility-body ul {
+    display: grid;
+    gap: 10px;
+}
+
+.facility-body ul li {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: var(--deep);
+}
+
+.facility-body ul li i {
+    font-size: 0.45rem;
+    color: var(--accent);
+}
+
+/* =============================================
+   CTA SECTION
+============================================= */
+.cta-section {
+    padding: 60px 24px 120px;
+}
+
+.cta-card {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: linear-gradient(120deg, rgba(28, 126, 214, 0.1), rgba(247, 183, 51, 0.12));
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 24px;
+    padding: 40px;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.cta-card h2 {
+    font-family: 'Playfair Display', serif;
+    margin: 12px 0;
+}
+
+.cta-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media (max-width: 992px) {
+    .-hero-inner,
+    .facility-detail-card,
+    .experience-grid {
         grid-template-columns: 1fr;
     }
 
-    .fasilitas-detail.reverse .detail-image {
-        order: 0;
+    .-hero {
+        padding-top: 180px;
     }
 
-    .fasilitas-detail {
-        margin-bottom: 80px;
+    .facility-detail-card.reverse .facility-image {
+        order: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .-hero {
+        padding: 160px 18px 100px;
+    }
+
+    .-hero h1 {
+        font-size: 2.3rem;
+    }
+
+    .hero-stat-card {
+        padding: 20px;
+    }
+
+    .cta-card {
+        padding: 32px 24px;
     }
 }

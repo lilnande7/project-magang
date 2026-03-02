@@ -15,7 +15,7 @@
                 <ul class="dropdown">
                     <li><a href="/agenda">Agenda Kegiatan</a></li>
                     <li><a href="/berita">Berita</a></li>
-                    <li><a href="/galeri">Galeri</a></li>
+                    <li><a href="/galeri0">Galeri</a></li>
                     <li><a href="/layanan">Layanan</a></li>
                     <li><a href="/pengumuman">Pengumuman</a></li>
                 </ul>
@@ -26,7 +26,7 @@
                 <ul class="dropdown">
                     <li><a href="/agenda">Agenda Kegiatan</a></li>
                     <li><a href="/berita">Berita</a></li>
-                    <li><a href="/galeri">Galeri</a></li>
+                    <li><a href="/galeri0">Galeri</a></li>
                     <li><a href="/layanan">Layanan</a></li>
                     <li><a href="/pengumuman">Pengumuman</a></li>
                 </ul>
