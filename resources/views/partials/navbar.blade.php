@@ -49,8 +49,15 @@
                     <ul class="dropdown">
                         <li><a href="/agenda">Agenda Kegiatan</a></li>
                         <li><a href="{{ route('news.index') }}">Berita</a></li>
-                        <li><a href="/galeri">Galeri</a></li>
-                        <li><a href="{{ route('services') }}">Layanan</a></li>
+                        <li><a href="{{ route('gallery') }}">Galeri</a></li>
+                        <li class="has-sub-dropdown">
+                            <span class="dropdown-subtitle" tabindex="0">Layanan</span>
+                            <ul class="sub-dropdown">
+                                <li><a href="https://play.google.com/store/apps/details?id=com.eperpus.saas.ppic&pcampaignid=web_share">Avialib</a></li>
+                                <li><a href="https://ppicurug.turnitin.com/home/sign-in?redirect_to=https:%2F%2Fppicurug.turnitin.com%2F">Turnitin</a></li>
+                                <li><a href="https://journal.ppicurug.ac.id/index.php/jurnal-ilmiah-aviasi">Jurnal</a></li>
+                            </ul>
+                        </li>
                         <li><a href="/pengumuman">Pengumuman</a></li>
                     </ul>
                 </li>

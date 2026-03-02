@@ -29,12 +29,15 @@ Route::get('/hubungikami', function () {
     ]);
 })->name('contact');
 
-// Halaman Layanan
-Route::get('/layanan', function () {
-    return view('layanan.index', [
-        'title' => 'Layanan - Perpustakaan PPIC'
+// Halaman Galeri (menggantikan layanan)
+Route::get('/galeri0', function () {
+    return view('galeri.index', [
+        'title' => 'Galeri - Perpustakaan PPIC'
     ]);
-})->name('services');
+})->name('gallery');
+
+// Redirect legacy layanan URL
+Route::redirect('/layanan', '/galeri0', 301);
 
 // Halaman OPAC
 Route::get('/opac', function () {

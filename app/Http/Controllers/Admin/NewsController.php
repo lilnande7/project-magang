@@ -55,10 +55,13 @@ class NewsController extends Controller
             'content' => 'required|string',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'status' => 'required|in:draft,published,archived',
-            'is_featured' => 'boolean',
+            'is_featured' => 'nullable|boolean',
             'tags' => 'nullable|string',
             'published_at' => 'nullable|date'
         ]);
+
+        // Explicitly coerce featured flag so checkbox off state is saved as false
+        $validatedData['is_featured'] = $request->boolean('is_featured');
         
         // Handle tags
         if ($request->filled('tags')) {
@@ -119,10 +122,13 @@ class NewsController extends Controller
             'content' => 'required|string',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'status' => 'required|in:draft,published,archived',
-            'is_featured' => 'boolean',
+            'is_featured' => 'nullable|boolean',
             'tags' => 'nullable|string',
             'published_at' => 'nullable|date'
         ]);
+
+        // Because unchecked checkboxes are omitted, force the boolean value explicitly
+        $validatedData['is_featured'] = $request->boolean('is_featured');
         
         // Handle tags
         if ($request->filled('tags')) {
