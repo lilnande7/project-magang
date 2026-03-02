@@ -1,0 +1,50 @@
+/* =============================================
+   GLASSMORPHIC LIBRARY THEME
+   Overlay effects for cards and sections
+============================================= */
+
+/* Glassmorphic Cards - subtle effect */
+.highlight-section .card:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* News Cards Glassmorphic Effect */
+.news-item {
+    transition: all 0.3s ease;
+}
+
+.news-item:hover {
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.06);
+}
+
+/* Video Container */
+.video-embed {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Dropdown Enhanced */
+.dropdown {
+    background: #ffffff !important;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Ensure text readability on hero */
+.hero-content h1,
+.hero-content p,
+.hero-content .hero-label {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .navbar.scrolled {
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+    }
+}
+
+/* Smooth transitions for all elements */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

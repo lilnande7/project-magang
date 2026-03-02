@@ -11,7 +11,8 @@ use App\Http\Controllers\HomeController;
 // Halaman Utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Halaman Berita Individual
+// Halaman Berita
+Route::get('/berita', [HomeController::class, 'news'])->name('news.index');
 Route::get('/news/{id}', [HomeController::class, 'showNews'])->name('news.show');
 
 // Halaman Profil
