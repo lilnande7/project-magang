@@ -156,6 +156,17 @@
                                     <i class="bi bi-sliders"></i>
                                     Manage Roles
                                 </button>
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-secondary change-password-btn"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#changePasswordModal"
+                                    data-user-id="{{ $user->id }}"
+                                    data-user-name="{{ $user->name }}"
+                                >
+                                    <i class="bi bi-key"></i>
+                                    Ganti Password
+                                </button>
                                 @if($user->id !== auth()->id())
                                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline">
                                         @csrf
@@ -203,14 +214,52 @@
         </div>
     </div>
 </div>
+
+<!-- Change Password Modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ganti Password Pengguna</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" id="changePasswordForm" autocomplete="off">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <p class="text-muted" id="passwordUserInfo"></p>
+                    <div class="mb-3">
+                        <label for="current_password" class="form-label">Password Sebelumnya</label>
+                        <input type="password" class="form-control" id="current_password" name="current_password" required>
+                        <small class="text-muted">Untuk alasan keamanan, masukkan password lama pengguna sebelum menetapkan yang baru.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="new_password" class="form-label">Password Baru</label>
+                        <input type="password" class="form-control" id="new_password" name="password" minlength="8" required>
+                    </div>
+                    <div>
+                        <label for="new_password_confirmation" class="form-label">Konfirmasi Password Baru</label>
+                        <input type="password" class="form-control" id="new_password_confirmation" name="password_confirmation" minlength="8" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Perbarui Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
 <script>
-    const updateBaseUrl = "{{ url('admin/users') }}";
+    const userBaseUrl = "{{ url('admin/users') }}";
     const manageRoleForm = document.getElementById('manageRoleForm');
     const manageRoleSelect = document.getElementById('manage_roles');
     const selectedUserInfo = document.getElementById('selectedUserInfo');
+    const changePasswordForm = document.getElementById('changePasswordForm');
+    const passwordUserInfo = document.getElementById('passwordUserInfo');
 
     document.querySelectorAll('.manage-roles-btn').forEach(button => {
         button.addEventListener('click', () => {
@@ -219,11 +268,27 @@
             const roles = button.dataset.userRoles ? button.dataset.userRoles.split(',').filter(Boolean) : [];
 
             selectedUserInfo.textContent = `Updating roles for ${userName}`;
-            manageRoleForm.action = `${updateBaseUrl}/${userId}`;
+            manageRoleForm.action = `${userBaseUrl}/${userId}`;
 
             Array.from(manageRoleSelect.options).forEach(option => {
                 option.selected = roles.includes(option.value);
             });
+        });
+    });
+
+    document.querySelectorAll('.change-password-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const userId = button.dataset.userId;
+            const userName = button.dataset.userName;
+
+            if (changePasswordForm) {
+                changePasswordForm.reset();
+                changePasswordForm.action = `${userBaseUrl}/${userId}/password`;
+            }
+
+            if (passwordUserInfo) {
+                passwordUserInfo.textContent = `Menetapkan password baru untuk ${userName}`;
+            }
         });
     });
 

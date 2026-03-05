@@ -318,28 +318,36 @@
 </section>
 
 {{-- ===== STATISTICS SECTION ===== --}}
-<section class="stats-section">
-    <div class="stats-grid">
-        <div class="stat-card" data-animate="fadeInUp" data-delay="0">
-            <div class="stat-icon"><i class="fas fa-books"></i></div>
-            <h3 class="stat-number" data-count="{{ $stats['total_books'] ?? 0 }}">0</h3>
-            <p>Total Koleksi Buku</p>
-        </div>
-        <div class="stat-card" data-animate="fadeInUp" data-delay="150">
-            <div class="stat-icon"><i class="fas fa-book-open"></i></div>
-            <h3 class="stat-number" data-count="{{ $stats['available_books'] ?? 0 }}">0</h3>
-            <p>Buku Tersedia</p>
-        </div>
-        <div class="stat-card" data-animate="fadeInUp" data-delay="300">
-            <div class="stat-icon"><i class="fas fa-tags"></i></div>
-            <h3 class="stat-number" data-count="{{ $stats['total_categories'] ?? 0 }}">0</h3>
-            <p>Kategori Buku</p>
-        </div>
-        <div class="stat-card" data-animate="fadeInUp" data-delay="450">
-            <div class="stat-icon"><i class="fas fa-users"></i></div>
-            <h3 class="stat-number" data-count="{{ $stats['total_members'] ?? 0 }}">0</h3>
-            <p>Anggota Aktif</p>
-        </div>
+<section class="stats-section librarian-section" id="librarians">
+    <div class="section-header" data-animate="fadeInUp">
+        <span class="section-label">Tim Pustakawan</span>
+        <h2>Kenali wajah layanan perpustakaan</h2>
+        <p>Setiap pustakawan siap membantu kebutuhan referensi, reservasi ruang, hingga konsultasi riset.</p>
+    </div>
+    <div class="stats-grid librarian-grid">
+        @forelse($librarians as $index => $librarian)
+        <article class="stat-card librarian-card" data-animate="fadeInUp" data-delay="{{ $index * 150 }}">
+            <div class="librarian-avatar">
+                <img src="{{ 'https://ui-avatars.com/api/?background=1c7ed6&color=fff&name=' . urlencode($librarian['name']) }}" alt="{{ $librarian['name'] }}">
+            </div>
+            <div class="librarian-info">
+                <h3>{{ $librarian['name'] }}</h3>
+                @if(!empty($librarian['expertise']))
+                    <p class="librarian-expertise">{{ $librarian['expertise'] }}</p>
+                @endif
+                @if(!empty($librarian['email']))
+                    <a href="mailto:{{ $librarian['email'] }}" class="librarian-contact">
+                        <i class="fas fa-envelope"></i>
+                        {{ $librarian['email'] }}
+                    </a>
+                @endif
+            </div>
+        </article>
+        @empty
+        <article class="stat-card librarian-card" data-animate="fadeInUp">
+            <p>Daftar pustakawan akan segera tersedia.</p>
+        </article>
+        @endforelse
     </div>
 </section>
 

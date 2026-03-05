@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -76,6 +77,27 @@ class UserController extends Controller
         $user->roles()->sync($validated['roles']);
 
         return back()->with('success', 'Roles updated for ' . $user->name . '.');
+    }
+
+    /**
+     * Allow super admins to update a user's password after verifying the previous one.
+     */
+    public function updatePassword(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'current_password' => ['required', 'string'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        if (!Hash::check($validated['current_password'], $user->password)) {
+            return back()->with('error', 'Kata sandi sebelumnya tidak sesuai untuk pengguna ini.');
+        }
+
+        $user->update([
+            'password' => $validated['password'],
+        ]);
+
+        return back()->with('success', 'Kata sandi baru berhasil diterapkan untuk ' . $user->name . '.');
     }
 
     /**

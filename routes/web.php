@@ -83,6 +83,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:super-admin|ad
         Route::get('users', [AdminUserController::class, 'index'])->name('users.index');
         Route::post('users', [AdminUserController::class, 'store'])->name('users.store');
         Route::put('users/{user}', [AdminUserController::class, 'update'])->name('users.update');
+        Route::put('users/{user}/password', [AdminUserController::class, 'updatePassword'])->name('users.update-password');
         Route::delete('users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
     });
     
