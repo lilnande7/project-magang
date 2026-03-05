@@ -46,7 +46,7 @@
 
 .contact-section {
     position: relative;
-    margin-top: -150px;
+    margin-top: -75px;
     /* naik ke hero */
     padding-bottom: 80px;
     display: flex;
@@ -190,7 +190,6 @@
 
 .location-section {
     overflow-x: hidden;
-    margin-top: -100px;
     /* PENTING */
 }
 
