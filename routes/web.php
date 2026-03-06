@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BookController as AdminBookController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
@@ -76,5 +77,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:super-admin|ad
     // News Management
     Route::resource('news', AdminNewsController::class);
     Route::post('news/{news}/publish', [AdminNewsController::class, 'publish'])->name('news.publish');
+
+    // User Management (Super Admin only)
+    Route::middleware('role:super-admin')->group(function () {
+        Route::get('users', [AdminUserController::class, 'index'])->name('users.index');
+        Route::post('users', [AdminUserController::class, 'store'])->name('users.store');
+        Route::put('users/{user}', [AdminUserController::class, 'update'])->name('users.update');
+        Route::put('users/{user}/password', [AdminUserController::class, 'updatePassword'])->name('users.update-password');
+        Route::delete('users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
+    });
     
 });
