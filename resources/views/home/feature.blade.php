@@ -1,4 +1,4 @@
-{-- ===== FEATURED SERVICES ===== --}}
+{{-- ===== FEATURED SERVICES ===== --}}
 <section class="feature-section">
     <div class="section-header" data-animate="fadeInUp">
         <span class="section-label">Layanan & Pengalaman</span>
