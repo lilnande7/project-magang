@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BookController as AdminBookController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
@@ -76,5 +77,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:super-admin|ad
     // News Management
     Route::resource('news', AdminNewsController::class);
     Route::post('news/{news}/publish', [AdminNewsController::class, 'publish'])->name('news.publish');
+
+    // Users Management
+    Route::resource('users', AdminUserController::class)->except(['show']);
     
 });

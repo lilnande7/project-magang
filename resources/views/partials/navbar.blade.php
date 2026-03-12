@@ -70,7 +70,6 @@
                         OPAC
                     </a>
                 </li>
-                <li><a href="/eresource">E-RESOURCE</a></li>
                 <li><a href="/kerjasama">KERJASAMA</a></li>
 
                 {{-- Authentication Menu --}}

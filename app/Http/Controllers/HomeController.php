@@ -41,11 +41,38 @@ class HomeController extends Controller
         $availableBooks = Book::where('status', 'available')->count();
         $totalMembers = User::count();
 
+        $librarians = User::select('id', 'name', 'email', 'avatar_path', 'created_at')
+            ->whereHas('roles', function ($query) {
+                $query->where('slug', 'librarian');
+            })
+            ->with(['roles' => function ($query) {
+                $query->select('roles.id', 'roles.name', 'roles.slug');
+            }])
+            ->orderBy('name')
+            ->get()
+            ->map(function ($librarian) {
+                $nameParts = array_filter(preg_split('/\s+/', trim($librarian->name)) ?: []);
+                $initials = '';
+
+                foreach ($nameParts as $part) {
+                    $initials .= mb_substr($part, 0, 1);
+                    if (mb_strlen($initials) >= 2) {
+                        break;
+                    }
+                }
+
+                $librarian->initials = mb_strtoupper($initials ?: mb_substr($librarian->name, 0, 1));
+                $librarian->primary_role = $librarian->roles->firstWhere('slug', 'librarian') ?? $librarian->roles->first();
+
+                return $librarian;
+            });
+
         return view('home', [
             'title' => 'Beranda - Perpustakaan PPIC',
             'featuredNews' => $featuredNews,
             'latestNews' => $latestNews,
             'topCategories' => $topCategories,
+            'librarians' => $librarians,
             'stats' => [
                 'total_books' => $totalBooks,
                 'total_categories' => $totalCategories,

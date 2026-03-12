@@ -317,30 +317,55 @@
     @endif
 </section>
 
-{{-- ===== STATISTICS SECTION ===== --}}
-<section class="stats-section">
-    <div class="stats-grid">
-        <div class="stat-card" data-animate="fadeInUp" data-delay="0">
-            <div class="stat-icon"><i class="fas fa-books"></i></div>
-            <h3 class="stat-number" data-count="{{ $stats['total_books'] ?? 0 }}">0</h3>
-            <p>Total Koleksi Buku</p>
-        </div>
-        <div class="stat-card" data-animate="fadeInUp" data-delay="150">
-            <div class="stat-icon"><i class="fas fa-book-open"></i></div>
-            <h3 class="stat-number" data-count="{{ $stats['available_books'] ?? 0 }}">0</h3>
-            <p>Buku Tersedia</p>
-        </div>
-        <div class="stat-card" data-animate="fadeInUp" data-delay="300">
-            <div class="stat-icon"><i class="fas fa-tags"></i></div>
-            <h3 class="stat-number" data-count="{{ $stats['total_categories'] ?? 0 }}">0</h3>
-            <p>Kategori Buku</p>
-        </div>
-        <div class="stat-card" data-animate="fadeInUp" data-delay="450">
-            <div class="stat-icon"><i class="fas fa-users"></i></div>
-            <h3 class="stat-number" data-count="{{ $stats['total_members'] ?? 0 }}">0</h3>
-            <p>Anggota Aktif</p>
-        </div>
+{{-- ===== LIBRARIANS SECTION ===== --}}
+<section class="librarians-section" id="librarians">
+    <div class="section-header" data-animate="fadeInUp">
+        <span class="section-label">Tim Pustakawan</span>
+        <h2>Kenali wajah di balik layanan referensi</h2>
+        <p>Pustakawan profesional siap membantu kebutuhan riset, peminjaman, dan literasi digital Anda.</p>
     </div>
+
+    @if($librarians->count())
+    <div class="librarians-grid">
+        @foreach($librarians as $index => $librarian)
+        <article class="librarian-card" data-animate="fadeInUp" data-delay="{{ $index * 120 }}">
+            <div class="librarian-header">
+                <div class="librarian-avatar">
+                    @if($librarian->avatar_path)
+                        <img src="{{ asset('storage/' . $librarian->avatar_path) }}" alt="{{ $librarian->name }}" loading="lazy">
+                    @else
+                        <span>{{ $librarian->initials }}</span>
+                    @endif
+                </div>
+                <div>
+                    <h3>{{ $librarian->name }}</h3>
+                    <p class="librarian-role">{{ optional($librarian->primary_role)->name ?? 'Pustakawan' }}</p>
+                </div>
+            </div>
+            <div class="librarian-body">
+                <p class="librarian-intro">
+                    {{ optional($librarian->primary_role)->description ?? 'Melayani pemustaka, kurasi koleksi, dan pendampingan literasi informasi.' }}
+                </p>
+                <ul class="librarian-meta">
+                    <li><i class="fas fa-envelope"></i>{{ $librarian->email }}</li>
+                    @if($librarian->created_at)
+                    <li><i class="far fa-calendar"></i>Bergabung {{ $librarian->created_at->translatedFormat('F Y') }}</li>
+                    @endif
+                </ul>
+            </div>
+            <div class="librarian-footer">
+                <a href="mailto:{{ $librarian->email }}" class="btn-outline">Hubungi</a>
+                <span class="librarian-shift"><i class="fas fa-clock"></i>Respons &lt; 1 hari</span>
+            </div>
+        </article>
+        @endforeach
+    </div>
+    @else
+    <div class="librarian-empty" data-animate="fadeInUp">
+        <i class="fas fa-user-friends"></i>
+        <p>Data pustakawan belum tersedia. Tambahkan melalui dashboard admin.</p>
+    </div>
+    @endif
 </section>
 
 {{-- ===== MEDIA SECTION (YOUTUBE + INSTAGRAM) ===== --}}
@@ -466,34 +491,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 400);
     }
 
-    // ===== STAT COUNTERS =====
-    var statNumbers = document.querySelectorAll('.stat-number');
-
-    var statsObserver = new IntersectionObserver(function(entries, observer) {
-        entries.forEach(function(entry) {
-            if (!entry.isIntersecting) return;
-
-            var el = entry.target;
-            var target = parseInt(el.getAttribute('data-count') || '0', 10);
-            var current = 0;
-            var increment = Math.max(1, Math.floor(target / 60));
-
-            var counter = setInterval(function() {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(counter);
-                }
-                el.textContent = current.toLocaleString('id-ID');
-            }, 20);
-
-            observer.unobserve(el);
-        });
-    }, { threshold: 0.4 });
-
-    statNumbers.forEach(function(el) {
-        statsObserver.observe(el);
-    });
 });
 </script>
 @endsection

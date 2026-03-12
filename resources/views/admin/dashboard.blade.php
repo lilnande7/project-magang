@@ -224,6 +224,67 @@
     </div>
 </div>
 
+<!-- Account Activity Logs -->
+<div class="row g-4 mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="bi bi-clipboard-data me-2"></i>
+                    Account Activity
+                </h5>
+                <span class="badge bg-dark-subtle text-dark">{{ $recent_user_logs->count() }} entries</span>
+            </div>
+            <div class="card-body">
+                @if($recent_user_logs->isEmpty())
+                    <p class="text-muted mb-0">Belum ada aktivitas pengguna yang tercatat.</p>
+                @else
+                    <div class="list-group list-group-flush">
+                        @foreach($recent_user_logs as $log)
+                            <div class="list-group-item px-0 border-0">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <div class="fw-semibold">
+                                            {{ \Illuminate\Support\Str::of($log->action)->replace('.', ' ')->title() }}
+                                        </div>
+                                        <small class="text-muted">
+                                            Oleh {{ $log->admin->name ?? 'Sistem' }}
+                                            @if($log->targetUser)
+                                                • Untuk {{ $log->targetUser->name }}
+                                            @endif
+                                        </small>
+                                        @if($log->description)
+                                            <p class="mb-1 small text-muted">{{ $log->description }}</p>
+                                        @endif
+                                        @if(!empty($log->meta['roles']))
+                                            <small class="d-block text-muted">Role: {{ implode(', ', $log->meta['roles']) }}</small>
+                                        @endif
+                                        @if(!empty($log->meta['fields']))
+                                            <small class="d-block text-muted">Perubahan: {{ implode(', ', $log->meta['fields']) }}</small>
+                                        @endif
+                                        @if(!empty($log->meta['avatar_updated']))
+                                            <small class="d-block text-muted">Avatar diperbarui</small>
+                                        @endif
+                                        @if(!empty($log->meta['avatar_removed']))
+                                            <small class="d-block text-muted">Avatar dihapus</small>
+                                        @endif
+                                        @if(!empty($log->meta['password_changed']))
+                                            <small class="d-block text-muted">Password diperbarui</small>
+                                        @endif
+                                    </div>
+                                    <div class="text-end">
+                                        <small class="text-muted">{{ $log->created_at->diffForHumans() }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Quick Actions -->
 <div class="row g-4 mt-4">
     <div class="col-12">

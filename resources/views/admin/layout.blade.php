@@ -175,6 +175,14 @@
                     <span class="sidebar-text ms-2">News</span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" 
+                   href="{{ route('admin.users.index') }}">
+                    <i class="bi bi-people"></i>
+                    <span class="sidebar-text ms-2">Users</span>
+                </a>
+            </li>
             
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('home') }}" target="_blank">
