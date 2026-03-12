@@ -315,6 +315,14 @@
                             <span class="mt-2">Manage Books</span>
                         </a>
                     </div>
+                    @if(auth()->user()?->hasRole('super-admin'))
+                    <div class="col-md-3 col-sm-6">
+                        <a href="{{ route('admin.users.index') }}" class="btn btn-outline-dark w-100 p-3">
+                            <i class="bi bi-people-fill display-6 d-block"></i>
+                            <span class="mt-2">Manage Users</span>
+                        </a>
+                    </div>
+                    @endif
                     <div class="col-md-3 col-sm-6">
                         <a href="{{ route('home') }}" target="_blank" class="btn btn-outline-warning w-100 p-3">
                             <i class="bi bi-eye display-6 d-block"></i>

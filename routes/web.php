@@ -78,7 +78,18 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:super-admin|ad
     Route::resource('news', AdminNewsController::class);
     Route::post('news/{news}/publish', [AdminNewsController::class, 'publish'])->name('news.publish');
 
+<<<<<<< HEAD
     // Users Management
     Route::resource('users', AdminUserController::class)->except(['show']);
+=======
+    // User Management (Super Admin only)
+    Route::middleware('role:super-admin')->group(function () {
+        Route::get('users', [AdminUserController::class, 'index'])->name('users.index');
+        Route::post('users', [AdminUserController::class, 'store'])->name('users.store');
+        Route::put('users/{user}', [AdminUserController::class, 'update'])->name('users.update');
+        Route::put('users/{user}/password', [AdminUserController::class, 'updatePassword'])->name('users.update-password');
+        Route::delete('users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
+    });
+>>>>>>> main
     
 });

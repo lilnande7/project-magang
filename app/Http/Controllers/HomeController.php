@@ -41,6 +41,7 @@ class HomeController extends Controller
         $availableBooks = Book::where('status', 'available')->count();
         $totalMembers = User::count();
 
+<<<<<<< HEAD
         $librarians = User::select('id', 'name', 'email', 'avatar_path', 'created_at')
             ->whereHas('roles', function ($query) {
                 $query->where('slug', 'librarian');
@@ -67,6 +68,55 @@ class HomeController extends Controller
                 return $librarian;
             });
 
+=======
+        $expertises = [
+            'Kurasi Koleksi & Referensi',
+            'Layanan Sirkulasi & Reservasi',
+            'Literasi Informasi & Pelatihan',
+            'Pengelolaan Repositori Digital',
+        ];
+
+        $librarianProfiles = User::whereHas('roles', function ($query) {
+                $query->where('slug', 'librarian');
+            })
+            ->select('name', 'email')
+            ->orderBy('name')
+            ->take(count($expertises))
+            ->get()
+            ->map(function ($user, $index) use ($expertises) {
+                return [
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'expertise' => $expertises[$index % count($expertises)],
+                ];
+            });
+
+        if ($librarianProfiles->isEmpty()) {
+            $librarianProfiles = collect([
+                [
+                    'name' => 'Ayu Pratama',
+                    'email' => 'referensi@ppic.ac.id',
+                    'expertise' => $expertises[0],
+                ],
+                [
+                    'name' => 'Raka Wirawan',
+                    'email' => 'sirkulasi@ppic.ac.id',
+                    'expertise' => $expertises[1],
+                ],
+                [
+                    'name' => 'Nadya Hanifah',
+                    'email' => 'literasi@ppic.ac.id',
+                    'expertise' => $expertises[2],
+                ],
+                [
+                    'name' => 'Bima Kusuma',
+                    'email' => 'repository@ppic.ac.id',
+                    'expertise' => $expertises[3],
+                ],
+            ]);
+        }
+
+>>>>>>> main
         return view('home', [
             'title' => 'Beranda - Perpustakaan PPIC',
             'featuredNews' => $featuredNews,
@@ -78,7 +128,8 @@ class HomeController extends Controller
                 'total_categories' => $totalCategories,
                 'available_books' => $availableBooks,
                 'total_members' => $totalMembers,
-            ]
+            ],
+            'librarians' => $librarianProfiles,
         ]);
     }
 
