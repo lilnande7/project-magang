@@ -8,6 +8,7 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Models\Borrowing;
 use App\Models\User;
+use App\Models\UserActivityLog;
 use App\Models\News;
 use Carbon\Carbon;
 
@@ -51,6 +52,11 @@ class DashboardController extends Controller
             ->latest()
             ->limit(4)
             ->get();
+
+        $recent_user_logs = UserActivityLog::with(['admin', 'targetUser'])
+            ->latest()
+            ->limit(8)
+            ->get();
             
         // Charts data
         $borrowings_chart = $this->getBorrowingsChartData();
@@ -63,7 +69,8 @@ class DashboardController extends Controller
             'recent_news',
             'featured_news',
             'borrowings_chart',
-            'books_by_category'
+            'books_by_category',
+            'recent_user_logs'
         ));
     }
     

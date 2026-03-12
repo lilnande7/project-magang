@@ -345,7 +345,7 @@ section {
 .sub-dropdown {
     position: absolute;
     top: 0;
-    left: calc(100% + 12px);
+    left: 100%;
     background: #fff;
     border-radius: 14px;
     min-width: 200px;
@@ -950,45 +950,179 @@ section {
 }
 
 /* =============================================
-   STATS & MEDIA
+   LIBRARIANS & MEDIA
 ============================================= */
 
-.stats-section {
-    background: linear-gradient(130deg, rgba(3, 7, 18, 0.95), rgba(28, 126, 214, 0.7));
-    padding: 100px 24px;
+.librarians-section {
+    background: radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.25), transparent 55%), #030712;
+    padding: 110px 24px;
+    position: relative;
+    overflow: hidden;
 }
 
-.stats-grid {
-    max-width: 1100px;
+.librarians-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 120px 120px;
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+.librarians-section .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+}
+
+.librarians-section .section-header h2 {
+    color: #fff;
+}
+
+.librarians-section .section-header p {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.librarians-grid {
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 26px;
+    position: relative;
+    z-index: 1;
 }
 
-.stat-card {
+.librarian-card {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 28px;
     padding: 28px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
-    text-align: center;
+    color: #e2e8f0;
+    box-shadow: 0 30px 65px rgba(2, 6, 23, 0.45);
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    transition: transform 0.35s ease, border-color 0.35s ease;
 }
 
-.stat-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.12);
+.librarian-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(56, 189, 248, 0.6);
+}
+
+.librarian-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.librarian-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.librarian-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #facc15, #f97316);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 14px;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #0f172a;
+    box-shadow: 0 15px 30px rgba(250, 204, 21, 0.35);
+    overflow: hidden;
+    position: relative;
 }
 
-.stat-number {
-    font-size: 2rem;
-    margin: 12px 0;
-    font-weight: 700;
+.librarian-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.librarian-role {
+    color: #38bdf8;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+.librarian-intro {
+    font-size: 0.95rem;
+    color: rgba(226, 232, 240, 0.85);
+    margin: 0;
+}
+
+.librarian-meta {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: rgba(226, 232, 240, 0.85);
+}
+
+.librarian-meta li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.librarian-meta i {
+    color: #38bdf8;
+}
+
+.librarian-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.librarian-footer .btn-outline {
+    border-color: rgba(226, 232, 240, 0.4);
+    color: #e2e8f0;
+}
+
+.librarian-footer .btn-outline:hover {
+    border-color: #38bdf8;
+    color: #38bdf8;
+}
+
+.librarian-shift {
+    font-size: 0.85rem;
+    color: rgba(226, 232, 240, 0.7);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.librarian-empty {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    color: rgba(226, 232, 240, 0.8);
+    position: relative;
+    z-index: 1;
+}
+
+.librarian-empty i {
+    font-size: 44px;
+    margin-bottom: 12px;
+    color: #38bdf8;
 }
 
 .librarian-section .section-label,
