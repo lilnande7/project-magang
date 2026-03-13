@@ -176,10 +176,6 @@
                 </a>
             </li>
 
-<<<<<<< HEAD
-=======
-            @if(auth()->user()?->hasRole('super-admin'))
->>>>>>> main
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" 
                    href="{{ route('admin.users.index') }}">
@@ -187,10 +183,6 @@
                     <span class="sidebar-text ms-2">Users</span>
                 </a>
             </li>
-<<<<<<< HEAD
-=======
-            @endif
->>>>>>> main
             
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('home') }}" target="_blank">

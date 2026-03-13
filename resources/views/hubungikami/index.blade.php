@@ -35,23 +35,38 @@
                 Silakan tinggalkan pesan, kami akan menghubungi Anda.
             </p>
 
-            <form>
+            @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('contact.submit') }}">
+                @csrf
                 <div class="form-group">
-                    <label>Nama Lengkap</label>
-                    <input type="text" placeholder="Nama Lengkap">
+                    <label for="contact-name">Nama Lengkap</label>
+                    <input id="contact-name" type="text" name="name" value="{{ old('name') }}" placeholder="Nama Lengkap" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" placeholder="Email">
+                    <label for="contact-email">Email</label>
+                    <input id="contact-email" type="email" name="email" value="{{ old('email') }}" placeholder="Email" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Pesan</label>
-                    <textarea rows="4" placeholder="Pesan"></textarea>
+                    <label for="contact-message">Pesan</label>
+                    <textarea id="contact-message" name="message" rows="4" placeholder="Pesan" required>{{ old('message') }}</textarea>
                 </div>
 
-                <button class="btn-primary">Kirim Pesan</button>
+                <button type="submit" class="btn-primary">Kirim Pesan</button>
             </form>
         </div>
 

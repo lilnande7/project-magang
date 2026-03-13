@@ -317,46 +317,12 @@
     @endif
 </section>
 
-<<<<<<< HEAD
 {{-- ===== LIBRARIANS SECTION ===== --}}
 <section class="librarians-section" id="librarians">
     <div class="section-header" data-animate="fadeInUp">
         <span class="section-label">Tim Pustakawan</span>
         <h2>Kenali wajah di balik layanan referensi</h2>
         <p>Pustakawan profesional siap membantu kebutuhan riset, peminjaman, dan literasi digital Anda.</p>
-=======
-{{-- ===== STATISTICS SECTION ===== --}}
-<section class="stats-section librarian-section" id="librarians">
-    <div class="section-header" data-animate="fadeInUp">
-        <span class="section-label">Tim Pustakawan</span>
-        <h2>Kenali wajah layanan perpustakaan</h2>
-        <p>Setiap pustakawan siap membantu kebutuhan referensi, reservasi ruang, hingga konsultasi riset.</p>
-    </div>
-    <div class="stats-grid librarian-grid">
-        @forelse($librarians as $index => $librarian)
-        <article class="stat-card librarian-card" data-animate="fadeInUp" data-delay="{{ $index * 150 }}">
-            <div class="librarian-avatar">
-                <img src="{{ 'https://ui-avatars.com/api/?background=1c7ed6&color=fff&name=' . urlencode($librarian['name']) }}" alt="{{ $librarian['name'] }}">
-            </div>
-            <div class="librarian-info">
-                <h3>{{ $librarian['name'] }}</h3>
-                @if(!empty($librarian['expertise']))
-                    <p class="librarian-expertise">{{ $librarian['expertise'] }}</p>
-                @endif
-                @if(!empty($librarian['email']))
-                    <a href="mailto:{{ $librarian['email'] }}" class="librarian-contact">
-                        <i class="fas fa-envelope"></i>
-                        {{ $librarian['email'] }}
-                    </a>
-                @endif
-            </div>
-        </article>
-        @empty
-        <article class="stat-card librarian-card" data-animate="fadeInUp">
-            <p>Daftar pustakawan akan segera tersedia.</p>
-        </article>
-        @endforelse
->>>>>>> main
     </div>
 
     @if($librarians->count())

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactController;
 
 // Halaman Utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -24,11 +25,8 @@ Route::get('/profile', function () {
 })->name('profile');
 
 // Halaman Hubungi Kami
-Route::get('/hubungikami', function () {
-    return view('hubungikami.index', [
-        'title' => 'Hubungi Kami - Perpustakaan PPIC'
-    ]);
-})->name('contact');
+Route::get('/hubungikami', [ContactController::class, 'show'])->name('contact');
+Route::post('/hubungikami', [ContactController::class, 'submit'])->name('contact.submit');
 
 // Halaman Galeri (menggantikan layanan)
 Route::get('/galeri0', function () {
@@ -78,18 +76,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:super-admin|ad
     Route::resource('news', AdminNewsController::class);
     Route::post('news/{news}/publish', [AdminNewsController::class, 'publish'])->name('news.publish');
 
-<<<<<<< HEAD
     // Users Management
     Route::resource('users', AdminUserController::class)->except(['show']);
-=======
-    // User Management (Super Admin only)
-    Route::middleware('role:super-admin')->group(function () {
-        Route::get('users', [AdminUserController::class, 'index'])->name('users.index');
-        Route::post('users', [AdminUserController::class, 'store'])->name('users.store');
-        Route::put('users/{user}', [AdminUserController::class, 'update'])->name('users.update');
-        Route::put('users/{user}/password', [AdminUserController::class, 'updatePassword'])->name('users.update-password');
-        Route::delete('users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
-    });
->>>>>>> main
     
 });
