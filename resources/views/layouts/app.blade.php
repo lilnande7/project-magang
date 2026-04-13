@@ -72,6 +72,93 @@
 
     @yield('scripts')
 
+
+    <!-- step4 <script>
+try {
+    window.onload = function() {
+        console.log('JS READY ✅');
+
+        const titles = document.querySelectorAll('.dropdown-title');
+
+        titles.forEach(title => {
+            title.onclick = function(e) {
+                e.preventDefault();
+
+                const parent = this.parentElement;
+                parent.classList.toggle('active');
+
+                console.log('CLICK');
+            };
+        });
+    };
+} catch (e) {
+    console.error('JS ERROR ❌', e);
+}
+
+
+window.onload = function() {
+
+    // MAIN DROPDOWN
+    document.querySelectorAll('.dropdown-title').forEach(title => {
+        title.onclick = function(e) {
+            e.preventDefault();
+
+            const parent = this.parentElement;
+
+            document.querySelectorAll('.has-dropdown').forEach(el => {
+                if (el !== parent) el.classList.remove('active');
+            });
+
+            parent.classList.toggle('active');
+        };
+    });
+
+    // 🔥 SUB DROPDOWN (INI YANG KURANG)
+    document.querySelectorAll('.dropdown-subtitle').forEach(sub => {
+        sub.onclick = function(e) {
+            e.preventDefault();
+
+            const parent = this.parentElement;
+            parent.classList.toggle('active');
+        };
+    });
+
+};
+
+</script>
+ -->
+
+<script>
+window.onload = function() {
+
+    // MAIN MENU
+    document.querySelectorAll('.has-dropdown > .menu-item').forEach(item => {
+        item.onclick = function() {
+
+            const parent = this.parentElement;
+
+            // close semua
+            document.querySelectorAll('.has-dropdown').forEach(el => {
+                if (el !== parent) el.classList.remove('active');
+            });
+
+            parent.classList.toggle('active');
+        };
+    });
+
+    // SUB MENU
+    document.querySelectorAll('.has-sub-dropdown > .menu-item').forEach(item => {
+        item.onclick = function(e) {
+            e.stopPropagation();
+
+            const parent = this.parentElement;
+            parent.classList.toggle('active');
+        };
+    });
+
+};
+</script>
+
 </body>
 
 </html>

@@ -6,14 +6,12 @@
 
 @section('content')
 
-<section class="hubungikami-hero">
-    <div class="hubungikami-hero-overlay"></div>
-
-    <div class="hubungikami-hero-content">
+<section class="page-hero" style="background-image: url('/images/perpuslabbahasa.png');">
+    <div class="page-hero-content">
         <h1>Hubungi Kami</h1>
         <p>
-            Ayo Hubungi Kami,
-            dan <br>sumber pengetahuan untuk mendukung kegiatan akademik.
+            Ayo Hubungi Kami, 
+                <br>"Perpustakaan menyediakan layanan pengaduan melalui fitur Hubungi Kami pada website serta media sosial resmi perpustakaan."
         </p>
     </div>
 </section>
@@ -30,7 +28,7 @@
 
         <!-- KANAN : FORM -->
         <div class="contact-form">
-            <h2>Hubungi Kami</h2>
+            <h2 class="section-title">Hubungi Kami</h2>
             <p class="form-desc">
                 Silakan tinggalkan pesan, kami akan menghubungi Anda.
             </p>
@@ -73,6 +71,21 @@
     </div>
 </section>
 
+<section class="cta-section" data-animate="fadeInUp">
+    <div class="cta-card">
+        <div>
+            <span class="section-label">Apakah anda memiliki pertanyaan?</span>
+            <h2>Tim pustakawan siap menjawab semua pertanyaan untukmu.</h2>
+            <p>Layanan pertanyaan, konsultasi literasi, atau dukungan event akademik hanya dalam beberapa klik.</p>
+        </div>
+        <div class="cta-actions">
+            <a href="https://www.instagram.com/avialib_ppicurug?igsh=Z244YjZudThzMDVq" class="btn-hero-primary">Referensi </a>
+            
+        </div>
+    </div>
+</section>
+
+
 <section class="location-section">
     <div class="location-grid">
 
@@ -110,5 +123,7 @@
 
     </div>
 </section>
+
+
 
 @endsection

@@ -6,15 +6,10 @@
 
 @section('content')
 
-<section class="profile-hero">
-    <div class="profile-hero-overlay"></div>
-
-    <div class="profile-hero-content">
+<section class="page-hero page-hero--profile">
+    <div class="page-hero-content">
         <h1>Profil Perpustakaan</h1>
-        <p>
-            Perpustakaan PPIC menyediakan layanan informasi,
-            dan <br>sumber pengetahuan untuk mendukung kegiatan akademik.
-        </p>
+        <p>Informasi tentang perpustakaan...</p>
     </div>
 </section>
 
@@ -22,8 +17,8 @@
     <div class="profile-about-container">
 
         <div class="profile-about-text">
-            <h2>Sekilas Tentang Perpustakaan</h2>
-            <p>
+            <h2 class="section-title">Sekilas Tentang Perpustakaan</h2>
+            <p class="section-desc section-desc--dark">
                 Perpustakaan PPIC merupakan unit pendukung akademik yang
                 menyediakan berbagai sumber informasi untuk mendukung kegiatan pendidikan, penelitian,
                 dan pengabdian kepada masyarakat.
@@ -42,8 +37,8 @@
         <div class="visi-box">
             <div class="visi-overlay"></div>
             <div class="visi-content">
-                <h2>Visi</h2>
-                <p>
+                <h2 class="section-title">Visi</h2>
+                <p class="section-desc">
                     Menjadi pusat informasi dan literasi yang unggul,
                     modern, dan mendukung kegiatan akademik civitas PPIC.
                 </p>
@@ -52,8 +47,8 @@
 
         <!-- MISI -->
         <div class="misi-box">
-            <h2>Misi</h2>
-            <ul>
+            <h2 class="section-title">Misi</h2>
+            <ul class="misi-list">
                 <li>Menyediakan koleksi informasi yang relevan dan berkualitas.</li>
                 <li>Mendukung kegiatan pendidikan, penelitian, dan pengabdian.</li>
                 <li>Mengembangkan layanan perpustakaan berbasis digital.</li>

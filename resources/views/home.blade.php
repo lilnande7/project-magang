@@ -378,9 +378,9 @@
     <div class="media-grid">
         <div class="media-card" data-animate="fadeInUp">
             <span class="card-label">Video Profil</span>
-            <h3>Mars </h3>
+            <h3>Profile Perpustakaan </h3>
             <div class="media-embed">
-                <iframe src="https://www.youtube.com/embed/XXrnQKeTVSQ" title="Video Profil Perpustakaan" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/GFn7Ql5NO9U" title="Video Profil Perpustakaan" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
         <div class="media-card" data-animate="fadeInUp" data-delay="150">

@@ -6,20 +6,10 @@
 
 @section('content')
 <!-- Page Header -->
-<section class="page-header">
-    <div class="container">
-        <nav class="breadcrumb-custom">
-            <ol class="breadcrumb justify-content-center">
-                <li class="breadcrumb-item">
-                    <a href="{{ route('home') }}">
-                        <i class="fas fa-home"></i> Beranda
-                    </a>
-                </li>
-                <li class="breadcrumb-item active">Berita</li>
-            </ol>
-        </nav>
-        <h1 class="page-title">Berita Terkini</h1>
-        <p class="page-subtitle">Informasi dan kabar terbaru dari Perpustakaan Politeknik Penerbangan Indonesia</p>
+<section class="page-hero" style="background-image: url('/images/perpuslabbahasa.png');">
+    <div class="page-hero-content">
+        <h1>Berita Terkini</h1>
+        <p>Informasi dan kabar terbaru dari Perpustakaan...</p>
     </div>
 </section>
 

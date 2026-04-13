@@ -1,63 +1,30 @@
 /* =============================================
    HERO SECTION
 ============================================= */
-.-hero {
-    position: relative;
-    min-height: 520px;
-    padding: 200px 24px 140px;
-    background: url('../images/perpuslabbahasa.png') center/cover no-repeat;
-    display: flex;
-    align-items: flex-end;
-    overflow: hidden;
+
+
+/* HERO (PAKAI GLOBAL SYSTEM) */
+.page-hero--layanan {
+    background-image: url('../images/perpuslabbahasa.png');
 }
 
-.-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, rgba(3, 7, 18, 0.9), rgba(28, 126, 214, 0.45));
-    z-index: 0;
-}
-
-.-hero-inner {
+.layanan-hero-inner {
     position: relative;
-    z-index: 1;
-    max-width: 1220px;
+    z-index: 2;
+    max-width: var(--container);
     margin: 0 auto;
     width: 100%;
+
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
     gap: 48px;
 }
 
-.-hero-copy {
-    color: #fff;
+.layanan-hero-meta {
+    display: grid;
+    gap: 18px;
 }
 
-.-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 6px 20px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.15);
-    letter-spacing: 2px;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-}
-
-.-hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.3rem;
-    line-height: 1.2;
-    margin: 20px 0 16px;
-}
-
-.-hero p {
-    max-width: 620px;
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 1rem;
-    line-height: 1.8;
-}
 
 .hero-action-group {
     margin-top: 32px;
@@ -95,10 +62,7 @@
     transform: translateY(-2px);
 }
 
-.-hero-meta {
-    display: grid;
-    gap: 18px;
-}
+
 
 .hero-stat-card {
     background: rgba(255, 255, 255, 0.08);
@@ -370,6 +334,10 @@
         grid-template-columns: 1fr;
     }
 
+    .layanan-hero-inner {
+        grid-template-columns: 1fr;
+    }
+
     .-hero {
         padding-top: 180px;
     }
@@ -396,3 +364,5 @@
         padding: 32px 24px;
     }
 }
+
+

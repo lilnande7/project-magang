@@ -1,117 +1,70 @@
-/* ========================= */
-/* HERO PROFILE PERPUSTAKAAN */
-/* ========================= */
-
-
-
-
-.profile-hero {
-    position: relative;
-    height: 380px;
-    background: url('../images/perpuslabbahasa.png') no-repeat;
-    background-size: cover;
-    background-position: 70% center;
-    display: flex;
-    align-items: flex-end;
+/* HERO */
+.page-hero--profile {
+    background-image: url('../images/perpuslabbahasa.png');
 }
 
-.profile-hero-overlay {
+.page-hero {
+    position: relative;
+    padding: 140px 24px 100px;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    text-align: left;
+}
+
+.page-hero::before {
+    content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(rgba(14, 18, 36, 0.45),
-            rgba(3, 3, 22, 0.55));
+    /* background: linear-gradient(rgba(3, 7, 18, 0.7), rgba(3, 7, 18, 0.7)); */
+    
 }
 
-.profile-hero-content {
+.page-hero-content {
     position: relative;
-    padding: 60px;
-    color: #ffffff;
+    z-index: 2;
     max-width: 700px;
 }
 
-.profile-hero-content h1 {
-    font-size: 37px;
-    font-weight: 300;
-    margin-bottom: 12px;
-    margin-left: 20px;
 
+
+.page-hero p {
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
 }
 
-.profile-hero-content p {
-    font-size: 16px;
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 16px;
+}
+
+.section-desc {
+    font-size: 1rem;
     line-height: 1.7;
-    color: #cbd5f5;
-    margin-left: 20px;
-    margin-bottom: 80px;
+    color: #64748b;
+    max-width: 600px;
 }
 
-
-/* ============================== */
-/* SEKILAS TENTANG PERPUSTAKAAN */
-/* ============================== */
-
-.profile-about {
-    padding: 100px 24px;
-    background: #ffffff;
-}
-
+/* ABOUT */
 .profile-about-container {
-    max-width: 1250px;
-    margin: auto;
+    max-width: var(--container);
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 64px;
     align-items: center;
 }
 
-.profile-about-text h2 {
-    font-size: 30px;
-    font-weight: 300;
-    margin-bottom: 24px;
-}
-
-.profile-about-text p {
-    font-size: 16px;
-    line-height: 1.8;
-    color: #4b5563;
-    margin-bottom: 16px;
-}
-
-.profile-about-image img {
-    width: 100%;
-    border-radius: 14px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-}
-
-@media (max-width: 992px) {
-    .profile-about-container {
-        grid-template-columns: 1fr;
-    }
-
-    .profile-about-text {
-        order: 2;
-    }
-
-    .profile-about-image {
-        order: 1;
-    }
-}
-
-
 /* VISI MISI */
-
-.visi-misi {
-    padding: 80px 24px;
-    background: #ffffff;
-}
-
 .visi-misi-container {
-    max-width: 1200px;
+    max-width: var(--container);
     margin: auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
-    align-items: stretch;
 }
 
 /* VISI */
@@ -128,61 +81,74 @@
 .visi-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(rgba(14, 18, 36, 0.6),
-            rgba(14, 18, 36, 0.6));
+    background: linear-gradient(rgba(14, 18, 36, 0.6), rgba(14, 18, 36, 0.6));
+    pointer-events: none;
 }
 
 .visi-content {
     position: relative;
     padding: 40px;
-    color: #ffffff;
+    color: #fff;
 }
 
 .visi-content h2 {
-    font-size: 32px;
-    margin-bottom: 5px;
-    font-weight: 400;
+    font-size: 1.8rem;
+    font-weight: 600;
 }
 
 .visi-content p {
-    font-size: 17px;
-    line-height: 1.7;
-    max-width: 420px;
-    margin-bottom: 90px;
+    margin-top: 10px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
 }
+
+
+
+
+
 
 /* MISI */
 .misi-box {
     padding: 40px;
-    background: #ffffff;
+    background: var(--card);
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-.misi-box h2 {
-    font-size: 32px;
-    margin-bottom: 20px;
-    font-weight: 400;
-}
-
-.misi-box ul {
+.misi-list {
+    list-style: disc;
     padding-left: 20px;
 }
 
-.misi-box li {
-    font-size: 16px;
-    line-height: 1.8;
+.misi-list li {
     margin-bottom: 12px;
-    color: #374151;
+        line-height: 1.6;
+        color: #475569;
+}
+
+.misi-box,
+.visi-box {
+    transition: all 0.3s ease;
+}
+
+.misi-box:hover,
+.visi-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* MODIFIER */
+.section-title--light {
+    color: #fff;
+}
+
+.section-desc--light {
+    color: rgba(255, 255, 255, 0.85);
 }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
     .visi-misi-container {
         grid-template-columns: 1fr;
-    }
-
-    .visi-content p {
-        max-width: 100%;
     }
 }
