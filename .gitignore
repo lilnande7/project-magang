@@ -1,4 +1,10 @@
-db
+db/data/
+/db/data/
+/docker/db/data/
+*.ibd
+ibdata1
+ib_logfile*
+aria_log*
 *.log
 .DS_Store
 .env

@@ -31,7 +31,7 @@ Route::post('/hubungikami', [ContactController::class, 'submit'])->name('contact
 
 // Halaman Galeri (menggantikan layanan)
 Route::get('/galeri0', function () {
-    return view('galeri.index', [
+    return view('layanan.index', [
         'title' => 'Galeri - Perpustakaan PPIC'
     ]);
 })->name('gallery');
