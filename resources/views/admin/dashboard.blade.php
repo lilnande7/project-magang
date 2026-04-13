@@ -47,6 +47,47 @@
     </div>
 </div>
 
+<div class="row g-4 mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="bi bi-graph-up me-2"></i>
+                    Pengunjung Website ({{ $year }})
+                </h5>
+                <div class="d-flex gap-2 align-items-center">
+                    <form method="GET" action="{{ route('admin.dashboard') }}" class="d-flex gap-2 align-items-center">
+                        <label for="year" class="form-label mb-0 small text-muted">Tahun</label>
+                        <input
+                            type="number"
+                            class="form-control form-control-sm"
+                            id="year"
+                            name="year"
+                            value="{{ $year }}"
+                            min="2000"
+                            max="2100"
+                            style="width: 96px;"
+                        />
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Tampilkan</button>
+                    </form>
+                    <a
+                        class="btn btn-sm btn-primary"
+                        href="{{ route('admin.dashboard.visitors.export', ['year' => $year]) }}"
+                    >Export Excel</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-end mb-2">
+                    <span class="badge bg-dark-subtle text-dark">Total: {{ $visitors_year_total }}</span>
+                </div>
+                <div style="height: 260px;">
+                    <canvas id="visitorsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row g-4">
     <!-- Recent News -->
     <div class="col-lg-6">
@@ -337,10 +378,55 @@
 @endsection
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
 <script>
     // Auto refresh dashboard every 5 minutes
     setTimeout(function() {
         location.reload();
     }, 300000); // 5 minutes
+
+    (function () {
+        const el = document.getElementById('visitorsChart');
+        if (!el || typeof Chart === 'undefined') return;
+
+        const labels = @json($visitors_chart['labels']);
+        const data = @json($visitors_chart['data']);
+        const year = @json($year);
+
+        new Chart(el, {
+            type: 'line',
+            data: {
+                labels,
+                datasets: [
+                    {
+                        label: 'Pengunjung',
+                        data,
+                        tension: 0.25,
+                        pointRadius: 2,
+                        fill: false,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: `Laporan Penghitung Pengunjung untuk tahun ${year}`
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0,
+                        }
+                    }
+                }
+            }
+        });
+    })();
 </script>
 @endpush

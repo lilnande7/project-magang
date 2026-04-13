@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BookController as AdminBookController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
@@ -68,6 +69,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:super-admin|ad
     
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/visitors/export', [DashboardController::class, 'exportVisitorsYear'])->name('dashboard.visitors.export');
     
     // Books Management
     Route::resource('books', AdminBookController::class);
@@ -78,5 +80,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:super-admin|ad
 
     // Users Management
     Route::resource('users', AdminUserController::class)->except(['show']);
+
+    // Complaints Management
+    Route::resource('complaints', AdminComplaintController::class)->only(['index', 'show', 'update']);
     
 });

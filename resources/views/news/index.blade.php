@@ -5,20 +5,33 @@
 @endsection
 
 @section('content')
+<<<<<<< HEAD
 <!-- Page Header -->
 <section class="page-hero" style="background-image: url('/images/perpuslabbahasa.png');">
     <div class="page-hero-content">
         <h1>Berita Terkini</h1>
         <p>Informasi dan kabar terbaru dari Perpustakaan...</p>
+=======
+<section class="news-hero">
+    <div class="news-hero-overlay"></div>
+    <div class="news-hero-content">
+        <div class="news-hero-breadcrumb">
+            <a href="{{ route('home') }}"><i class="fas fa-home"></i> Beranda</a>
+            <span class="sep">/</span>
+            <span>Berita</span>
+        </div>
+        <h1>Berita Terkini</h1>
+        <p>Informasi dan kabar terbaru dari Perpustakaan Politeknik Penerbangan Indonesia</p>
+>>>>>>> main
     </div>
 </section>
 
 <div class="news-page">
-    <div class="container">
+    <div class="news-container">
         
         <!-- Featured News Section -->
         @if($featuredNews->count() > 0)
-        <section class="featured-section">
+        <section class="news-section featured-section">
             <div class="section-header">
                 <h2 class="section-title">Berita Utama</h2>
                 <p class="section-subtitle">Sorotan berita penting dan terkini</p>
@@ -82,7 +95,7 @@
         @endif
         
         <!-- All News Section -->
-        <section class="all-news-section">
+        <section class="news-section all-news-section">
             <div class="section-header">
                 <h2 class="section-title">Semua Berita</h2>
                 <p class="section-subtitle">Kumpulan berita dan informasi terlengkap</p>
