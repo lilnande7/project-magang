@@ -69,7 +69,9 @@
                                 <li><a href="https://play.google.com/store/apps/details?id=com.eperpus.saas.ppic&pcampaignid=web_share">Avialib</a></li>
                                 <li><a href="https://ppicurug.turnitin.com/home/sign-in?redirect_to=https:%2F%2Fppicurug.turnitin.com%2F">Turnitin</a></li>
                                 <li><a href="https://journal.ppicurug.ac.id/index.php/jurnal-ilmiah-aviasi">Jurnal Langit Biru</a></li>
-                                <li><a href="https://repository.ppicurug.ac.id/">E-Repository</a></li> 
+                                <li><a href="https://perpusnas.go.id/">Perpusnas</a></li>
+                                <li><a href="https://repository.ppicurug.ac.id/">E-Repository</a></li>
+                                <li><a href="https://repository.ppicurug.ac.id/">E-Resources</a></li> 
                             </ul>
                         </li>
                             <li class="has-sub-dropdown">
@@ -112,7 +114,25 @@
                         OPAC
                     </a>
                 </li>
-                <li><a href="/kerjasama">KERJASAMA</a></li>
+                
+                  <li class="has-dropdown">
+                    <!-- <span class="dropdown-title">LAYANAN KAMI <i class="fas fa-chevron-down"></i></span> step 1-->
+                    <div class="menu-item">
+                        <span>KERJASAMA</span>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </div>
+
+                    <ul class="dropdown">
+                        <li><a href="https://library.poltekbangplg.ac.id/">Poltekbang Palembang</a></li>
+                        <li><a href="https://digilib.poltekbangsby.ac.id/">Poltekbang Surabaya</a></li>
+                        <li><a href="https://icpa-banyuwangi.ac.id/perpustakaan">Api Banyuwangi</a></li>
+                        <li><a href="https://poltekbangmakassar.ac.id/">Poltekbang Makasar</a></li>
+                        <li><a href="https://perpustakaan.poltekbangjayapura.my.id/">Poltekbang Jayapura</a></li>
+                        <li><a href="https://linktr.ee/perpustakaan.poltekbangmedan">Poltekbang Medan</a></li>
+                        <li><a href="https://perpus.bp3curug.id/">Bp3 cururg</a></li>
+                    </ul>
+                </li>
+
 
                 {{-- Authentication Menu --}}
                 @auth
