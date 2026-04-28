@@ -5,24 +5,11 @@
 @endsection
 
 @section('content')
-<<<<<<< HEAD
 <!-- Page Header -->
 <section class="page-hero" style="background-image: url('/images/perpuslabbahasa.png');">
     <div class="page-hero-content">
         <h1>Berita Terkini</h1>
         <p>Informasi dan kabar terbaru dari Perpustakaan...</p>
-=======
-<section class="news-hero">
-    <div class="news-hero-overlay"></div>
-    <div class="news-hero-content">
-        <div class="news-hero-breadcrumb">
-            <a href="{{ route('home') }}"><i class="fas fa-home"></i> Beranda</a>
-            <span class="sep">/</span>
-            <span>Berita</span>
-        </div>
-        <h1>Berita Terkini</h1>
-        <p>Informasi dan kabar terbaru dari Perpustakaan Politeknik Penerbangan Indonesia</p>
->>>>>>> main
     </div>
 </section>
 

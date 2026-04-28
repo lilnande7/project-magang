@@ -8,7 +8,7 @@
                 <span><i class="fas fa-phone"></i> (021) 5982204</span>
                 <span><i class="fas fa-envelope"></i> ppi@ppicurug.ac.id</span>
                 <span><i class="far fa-clock"></i> Sen - Jum 08:00 - 17:00</span>
-                <span><i class="fas fa-id-badge"></i> NPP. 3173052D2014743</span>
+                <span><i class="fas fa-id-badge"></i> NPP. 3603202C0000001</span>
             </div>
             <div class="top-actions">
                 <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="top-social">
@@ -55,6 +55,7 @@
 
                     
                     <ul class="dropdown">
+                        
                         <li><a href="/agenda">Agenda Kegiatan</a></li>
                         <li><a href="{{ route('news.index') }}">Berita</a></li>
                         <li><a href="{{ route('gallery') }}">Galeri</a></li>
@@ -66,6 +67,7 @@
                                 <i class="fas fa-chevron-right arrow"></i>
                             </div>
                             <ul class="sub-dropdown">
+                                
                                 <li><a href="https://play.google.com/store/apps/details?id=com.eperpus.saas.ppic&pcampaignid=web_share">Avialib</a></li>
                                 <li><a href="https://ppicurug.turnitin.com/home/sign-in?redirect_to=https:%2F%2Fppicurug.turnitin.com%2F">Turnitin</a></li>
                                 <li><a href="https://journal.ppicurug.ac.id/index.php/jurnal-ilmiah-aviasi">Jurnal Langit Biru</a></li>
@@ -75,12 +77,14 @@
                             </ul>
                         </li>
                             <li class="has-sub-dropdown">
+                                
                                 <!-- <span class="dropdown-subtitle" tabindex="0">E-Resources</span> -->
                                  <div class="menu-item sub">
                                     <span>E-Resources</span>
                                     <i class="fas fa-chevron-right arrow"></i>
                                 </div>
                                 <ul class="sub-dropdown">
+                                    
                                     <li><a href="https://perpusnas.go.id/">Perpusnas</a></li>
                                 </ul>
                             </li>
@@ -153,5 +157,11 @@
 
         </div>
     </nav>
+
+
+    
+
+
+
 
 </header>

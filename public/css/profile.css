@@ -146,9 +146,79 @@
     color: rgba(255, 255, 255, 0.85);
 }
 
-/* RESPONSIVE */
+
+/* ========================= */
+/* MOBILE FIX PROFILE PAGE */
+/* ========================= */
 @media (max-width: 768px) {
+
+    /* ================= HERO ================= */
+    .page-hero {
+        height: 280px;
+        align-items: center;
+        /* padding: 0 16px; */
+        padding:  120px 16px 60px;
+    }
+
+    .page-hero-content {
+        padding: 0;
+        max-width: 100%;
+    }
+
+    .page-hero-content h1 {
+        font-size: 1.6rem;
+        line-height: 1.3;
+    }
+
+    .page-hero-content p {
+        font-size: 0.9rem;
+    }
+
+    .page-hero::before {
+        background: linear-gradient(rgba(3, 7, 18, 0.75),
+                rgba(3, 7, 18, 0.85));
+    }
+
+    /* ================= ABOUT ================= */
+    .profile-about-container {
+        grid-template-columns: 1fr;
+        /* 🔥 dari 2 kolom jadi 1 */
+        gap: 20px;
+    }
+
+    .section-desc {
+        max-width: 100%;
+        /* 🔥 biar ga kepotong */
+        font-size: 0.95rem;
+    }
+
+    /* ================= VISI MISI ================= */
     .visi-misi-container {
         grid-template-columns: 1fr;
+        /* 🔥 WAJIB */
+        gap: 20px;
     }
+
+    .visi-content,
+    .misi-box {
+        padding: 20px;
+        /* 🔥 biar ga sempit */
+    }
+
+    .visi-box {
+        min-height: auto;
+    }
+
+    .misi-box {
+        margin: 0;
+        transform: none;
+    }
+
+    /* ================= CLEAN UP ================= */
+    .misi-box:hover,
+    .visi-box:hover {
+        transform: none;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
 }

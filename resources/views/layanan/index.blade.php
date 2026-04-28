@@ -83,7 +83,7 @@
 
         <!-- LEFT -->
         <div class="page-hero-content">
-            <span class="layanan-pill">Layanan Perpustakaan</span>
+            
 
             <h1>Layanan & Fasilitas Terintegrasi</h1>
 

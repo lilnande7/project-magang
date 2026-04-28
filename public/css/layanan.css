@@ -302,6 +302,7 @@
 
 .cta-card {
     max-width: 1100px;
+    padding-bottom: 50px;
     margin: 0 auto;
     background: linear-gradient(120deg, rgba(28, 126, 214, 0.1), rgba(247, 183, 51, 0.12));
     border: 1px solid rgba(148, 163, 184, 0.3);
@@ -365,4 +366,41 @@
     }
 }
 
+
+@media (max-width: 768px) {
+
+    /* ===== FIX HERO GLOBAL ===== */
+    .page-hero {
+        padding: 160px 16px 60px;
+        /* 🔥 kasih jarak dari navbar */
+        display: flex;
+        align-items: center;
+        text-align: center;
+    }
+
+    .page-hero-content {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .page-hero-content h1 {
+        font-size: 1.6rem;
+        line-height: 1.3;
+    }
+
+    .page-hero-content p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        max-width: 320px;
+        margin: 10px auto 0;
+    }
+
+    /* ===== OVERLAY BIAR TEKS KEBACA ===== */
+    .page-hero::before {
+        background: linear-gradient(rgba(3, 7, 18, 0.75),
+                rgba(3, 7, 18, 0.9));
+    }
+
+}
 
