@@ -11,6 +11,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 
+
+
+
 // Halaman Utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -64,6 +67,8 @@ Route::middleware('guest')->group(function () {
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
+
+ Route::get('/survey', [SurveyController::class, 'index']);
 // Admin Routes
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:super-admin|admin'])->group(function () {
     
@@ -83,5 +88,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:super-admin|ad
 
     // Complaints Management
     Route::resource('complaints', AdminComplaintController::class)->only(['index', 'show', 'update']);
-    
+
+
+   
+
 });

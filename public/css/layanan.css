@@ -8,18 +8,35 @@
     background-image: url('../images/perpuslabbahasa.png');
 }
 
-.layanan-hero-inner {
+.page-hero {
     position: relative;
-    z-index: 2;
-    max-width: var(--container);
-    margin: 0 auto;
-    width: 100%;
+    padding: 20px 24px 100px;
+    align-items: flex-start;
+    /* 🔥 FIX */
+    justify-content: flex-start;
+    /* 🔥 FIX */
 
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 48px;
+    text-align: left;
 }
 
+
+
+
+.page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* background: linear-gradient(rgba(3, 7, 18, 0.7), rgba(3, 7, 18, 0.7)); */
+
+}
+
+.page-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    
+}
+    
 .layanan-hero-meta {
     display: grid;
     gap: 18px;
@@ -369,19 +386,19 @@
 
 @media (max-width: 768px) {
 
+    
+
     /* ===== FIX HERO GLOBAL ===== */
-    .page-hero {
-        padding: 160px 16px 60px;
-        /* 🔥 kasih jarak dari navbar */
-        display: flex;
+.page-hero {
+        height: 280px;
         align-items: center;
-        text-align: center;
+        /* padding: 0 16px; */
+        padding: 120px 16px 60px;
     }
 
     .page-hero-content {
-        width: 100%;
+        padding: 0;
         max-width: 100%;
-        margin: 0 auto;
     }
 
     .page-hero-content h1 {
@@ -391,10 +408,14 @@
 
     .page-hero-content p {
         font-size: 0.9rem;
-        line-height: 1.6;
-        max-width: 320px;
-        margin: 10px auto 0;
+
     }
+
+    .page-hero::before {
+        background: linear-gradient(rgba(3, 7, 18, 0.75),
+                rgba(3, 7, 18, 0.85));
+    }
+
 
     /* ===== OVERLAY BIAR TEKS KEBACA ===== */
     .page-hero::before {

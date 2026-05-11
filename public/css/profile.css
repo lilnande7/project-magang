@@ -1,37 +1,37 @@
-/* HERO */
-.page-hero--profile {
-    background-image: url('../images/perpuslabbahasa.png');
-}
+    /* HERO */
+    .page-hero--profile {
+        background-image: url('../images/perpuslabbahasa.png');
+    }
 
-.page-hero {
-    position: relative;
-    padding: 140px 24px 100px;
-    display: flex;
-    align-items: left;
-    justify-content: left;
-    text-align: left;
-}
+    .page-hero {
+        position: relative;
+        padding: 140px 24px 100px;
+        display: flex;
+        align-items: left;
+        justify-content: left;
+        text-align: left;
+    }
 
-.page-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    /* background: linear-gradient(rgba(3, 7, 18, 0.7), rgba(3, 7, 18, 0.7)); */
-    
-}
+    .page-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        /* background: linear-gradient(rgba(3, 7, 18, 0.7), rgba(3, 7, 18, 0.7)); */
+        
+    }
 
-.page-hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 700px;
-}
+    .page-hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 700px;
+    }
 
 
 
-.page-hero p {
-    color: rgba(255, 255, 255, 0.85);
-    line-height: 1.6;
-}
+    .page-hero p {
+        color: rgba(255, 255, 255, 0.85);
+        line-height: 1.6;
+    }
 
 
 .section-title {
@@ -172,6 +172,7 @@
 
     .page-hero-content p {
         font-size: 0.9rem;
+       
     }
 
     .page-hero::before {

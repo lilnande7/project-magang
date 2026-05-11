@@ -78,20 +78,18 @@
 @endphp
 
 <section class="page-hero page-hero--layanan">
-    
-    <div class="layanan-hero-inner">
-
-        <!-- LEFT -->
+ <!-- LEFT -->
+  >
         <div class="page-hero-content">
-            
-
             <h1>Layanan & Fasilitas Terintegrasi</h1>
-
-            <p>
+            <p class="section-desc section-desc--dark">
                 Kami menghadirkan kombinasi layanan fisik dan digital agar proses riset,
                 belajar, dan kolaborasi terasa lebih intuitif untuk seluruh sivitas
                 Politeknik Penerbangan Indonesia Curug.
             </p>
+
+</div>
+           
 
         
 
