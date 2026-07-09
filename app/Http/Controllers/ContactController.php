@@ -2,48 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ContactMessageMail;
-use App\Models\Complaint;
 use Illuminate\Http\Request;
+use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use App\Models\Complaint;
 
 class ContactController extends Controller
 {
-    public function show()
+    public function index()
     {
-        return view('hubungikami.index', [
-            'title' => 'Hubungi Kami - Perpustakaan PPIC'
-        ]);
+        return view('hubungikami.index');
     }
 
     public function submit(Request $request)
     {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:120'],
-            'email' => ['required', 'email'],
-            'message' => ['required', 'string', 'max:2000'],
+        $request->validate([
+            'name' => 'required|max:100',
+            'email' => 'required|email',
+            'message' => 'required|max:2000',
         ]);
 
-        $data['ip'] = $request->ip();
-        $data['user_agent'] = $request->userAgent();
-
-        Complaint::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'message' => $data['message'],
-            'status' => Complaint::STATUS_MASUK,
-            'ip' => $data['ip'],
-            'user_agent' => $data['user_agent'] ? mb_substr($data['user_agent'], 0, 512) : null,
-        ]);
-
-        $recipient = config('mail.from.address', 'admin@example.com');
+        $data = $request->only(['name', 'email', 'message']);
 
         try {
-            Mail::to($recipient)->send(new ContactMessageMail($data));
-        } catch (\Throwable) {
-            // Keep UX simple: complaint is stored even if email fails.
-        }
+            Mail::to('ppicurug.library@gmail.com')
+                ->send(
+                    (new ContactMail($data))
+                    ->replyTo($request->email, $request->name)
+                );
 
-        return back()->with('success', 'Pesan berhasil dikirim. Tim kami akan segera menghubungi Anda.');
+            return back()->with('success', 'Pesan berhasil dikirim.');
+        } catch (\Throwable $e) {
+            Log::error('Contact form mail send failed: ' . $e->getMessage(), ['exception' => $e]);
+
+            // Persist the message so admins can handle it later
+            Complaint::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'message' => $data['message'],
+                'status' => Complaint::STATUS_MASUK,
+                'ip' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+            ]);
+
+            return back()->with('success', 'Pesan diterima. Kami akan menindaklanjuti walau pengiriman email gagal.');
+        }
     }
-}
+}   

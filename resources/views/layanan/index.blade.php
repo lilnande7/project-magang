@@ -78,63 +78,22 @@
 @endphp
 
 <section class="page-hero page-hero--layanan">
-    
-    <div class="layanan-hero-inner">
-
-        <!-- LEFT -->
+ <!-- LEFT -->
+  >
         <div class="page-hero-content">
-            <span class="layanan-pill">Layanan Perpustakaan</span>
-
             <h1>Layanan & Fasilitas Terintegrasi</h1>
-
-            <p>
+            <p class="section-desc section-desc--dark">
                 Kami menghadirkan kombinasi layanan fisik dan digital agar proses riset,
                 belajar, dan kolaborasi terasa lebih intuitif untuk seluruh sivitas
                 Politeknik Penerbangan Indonesia Curug.
             </p>
+
+</div>
+           
 
         
 
 </section>
-
-
-<!-- 
-<section class="layanan-hero" id="layananHero">
-    <div class="layanan-hero-overlay"></div>
-    <div class="layanan-hero-inner">
-        <div class="layanan-hero-copy" data-animate="fadeInUp">
-            <span class="layanan-pill">Layanan Perpustakaan</span>
-            <h1>Layanan & Fasilitas Terintegrasi</h1>
-            <p>
-                Kami menghadirkan kombinasi layanan fisik dan digital agar proses riset,
-                belajar, dan kolaborasi terasa lebih intuitif untuk seluruh sivitas
-                Politeknik Penerbangan Indonesia Curug.
-            </p>
-            <div class="hero-action-group">
-                <a href="https://digilib.ppicurug.ac.id" target="_blank" class="btn-hero-primary">Telusuri OPAC</a>
-                <a href="{{ route('contact') }}" class="btn-hero-secondary">Reservasi Layanan</a>
-            </div>
-        </div>
-
-        <div class="layanan-hero-meta" data-animate="fadeInUp" data-delay="200">
-            <div class="hero-stat-card">
-                <span>Jam Operasional</span>
-                <strong>08.00 - 17.00</strong>
-                <small>Senin - Jumat</small>
-            </div>
-            <div class="hero-stat-card">
-                <span>Area Fisik</span>
-                <strong>7 Zona</strong>
-                <small>Ruang riset & kolaborasi</small>
-            </div>
-            <div class="hero-stat-card">
-                <span>Digital Access</span>
-                <strong>24/7</strong>
-                <small>Repository & e-journal</small>
-            </div>
-        </div>
-    </div>
-</section> -->
 
 <section class="services-overview">
     <div class="section-header" data-animate="fadeInUp">
@@ -232,7 +191,7 @@
             <p>Reservasi ruang baca, konsultasi literasi, atau dukungan event akademik hanya dalam beberapa klik.</p>
         </div>
         <div class="cta-actions">
-            <a href="{{ route('contact') }}" class="btn-hero-primary">Hubungi Kami</a>
+            <a href="{{ route('contact.index') }}" class="btn-hero-primary">Hubungi Kami</a>
             <a href="https://digilib.ppicurug.ac.id" target="_blank" class="btn-hero-secondary">Akses Digital</a>
         </div>
     </div>

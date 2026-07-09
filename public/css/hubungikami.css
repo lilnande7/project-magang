@@ -152,6 +152,21 @@
     padding: 40px;
 }
 
+
+.map-wrap {
+    grid-column: 1 / -1;
+    /* 🔥 ini bikin dia full */
+}
+
+.map-wrap iframe {
+    width: 100%;
+    height: 500px;
+    border: 0;
+}
+
+
+
+
 .contact-form h2 {
     margin-bottom: 6px;
 }
@@ -201,90 +216,119 @@
 
 
 
+/* ========================= */
+/* MOBILE FIX - HUBUNGI KAMI */
+/* ========================= */
 @media (max-width: 768px) {
+
+    /* ===== NAVBAR OFFSET ===== */
+    main {
+        padding-top: 180px;
+    }
+
+    /* ===== HERO ===== */
+    .page-hero {
+        height: 260px;
+        padding: 0 16px;
+        align-items: center;
+    }
+
+    .page-hero::before {
+        background: linear-gradient(rgba(3, 7, 18, 0.75),
+                rgba(3, 7, 18, 0.9));
+    }
+
+    .page-hero-content {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .page-hero-content h1 {
+        font-size: 1.5rem;
+        line-height: 1.3;
+    }
+
+    .page-hero-content p {
+        font-size: 0.9rem;
+    }
+
+    /* ===== CONTACT CARD ===== */
     .contact-card {
-        grid-template-columns: 1fr;
+        width: 100%;
+        /* 🔥 dari 70% jadi full */
+        border-radius: 16px;
     }
 
-    .contact-image {
-        padding: 24px;
+    .contact-section {
+        padding: 0 16px 60px;
+        /* 🔥 kasih jarak kiri kanan */
     }
 
+    .contact-form {
+        padding: 20px;
+    }
+
+                /* 🔥 CENTER JUDUL */
+                .contact-form .section-title {
+                    text-align: center;
+                }   
+
+    .contact-form h2,
+    .contact-form .form-desc
+     {
+        text-align: center;
+            max-width: 320px;
+            margin: 0 auto 20px;
+    }
+
+    /* BATASI LEBAR BIAR GA KELEBARAN */
+    .contact-form .form-desc
+    {
+        max-width: 320px;
+        margin: 0 auto 20px;
+    }
+
+    /* ===== IMAGE ===== */
     .image-inner {
-        max-width: 260px;
-        margin: auto;
+        max-width: 220px;
     }
-}
 
+    /* ===== CTA ===== */
+    .cta-card {
+        padding: 20px;
+    }
 
-
-.contact-info h3 {
-    margin-bottom: 24px;
-    font-size: 1.25rem;
+         /* CENTER JUDUL */
+         section.contact-section .contact-card .contact-form .section-title {
+             text-align: center !important;
+         }
     
-        /* ke kiri */
-}
-
-.info-block {
-    margin-bottom: 24px;
+         /* CENTER DESKRIPSI */
+         section.contact-section .contact-card .contact-form .form-desc {
+             text-align: center !important;
+             max-width: 320px !important;
+             margin: 0 auto 20px !important;
+         }
     
-      /* ke kiri */
-}
+         /* OPTIONAL BIAR SEMUA RATA */
+         section.contact-section .contact-card {
+             text-align: center;
+         }
+    
 
-.info-block strong {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 14px;
-}
-
-.closed {
-    color: #c0392b;
-    font-weight: 600;
-}
-
-.info-block p {
-    font-size: 14px;
-    line-height: 1.7;
-    color: #555;
-}
+                   .contact-card {
+                       display: flex !important;
+                       flex-direction: column !important;
+                       align-items: center;
+                   }
+        
+                   .contact-image,
+                   .contact-form {
+                       width: 100%;
+                   }
 
 
 
-.location-section {
-    overflow-x: hidden;
-    /* PENTING */
-}
+                   
 
-
-
-.location-grid {
-    max-width: var(--container);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1.6fr;
-    align-items: stretch;
-}
-
-.map-wrap {
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
-
-.map-wrap iframe {
-    width: 100%;
-    height: 420px;
-
-    /* BIAR GEDE */
-    border: 0;
-}
-
-@media (max-width: 768px) {
-    .location-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .map-wrap iframe {
-        min-height: 300px;
-    }
 }

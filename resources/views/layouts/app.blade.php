@@ -15,12 +15,17 @@
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    {{-- Bootstrap CSS --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+
     {{-- Animate.css --}}
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
 
+    {{-- Bootsnav CSS --}}
+    <link rel="stylesheet" href="{{ asset('css/bootsnav.css') }}">
+
     {{-- Main Styles --}}
     <link rel="stylesheet" href="{{ asset('css/style.css?v=' . time()) }}">
-    <link rel="stylesheet" href="{{ asset('css/glassmorphic.css?v=' . time()) }}">
 
     @yield('css')
 </head>
@@ -36,7 +41,14 @@
     @include('partials.footer')
 
     {{-- Main Scripts --}}
-    <script src="{{ asset('js/glassmorphic.js?v=' . time()) }}"></script>
+    {{-- jQuery --}}
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    
+    {{-- Bootstrap JS --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+    {{-- Bootsnav JS --}}
+    <script src="{{ asset('js/bootsnav.js') }}"></script>
 
     {{-- Scroll Reveal Animations --}}
     <script>
@@ -67,97 +79,58 @@
             el.style.visibility = 'hidden';
             observer.observe(el);
         });
+
+        var topBar = document.querySelector('.top-bar');
+        var body = document.body;
+
+        function toggleTopBar() {
+            if (!topBar) {
+                return;
+            }
+
+            if (window.scrollY > 20) {
+                topBar.classList.add('collapsed');
+                body.classList.add('navbar-condensed');
+            } else {
+                topBar.classList.remove('collapsed');
+                body.classList.remove('navbar-condensed');
+            }
+        }
+
+        toggleTopBar();
+        window.addEventListener('scroll', toggleTopBar, { passive: true });
     });
     </script>
 
     @yield('scripts')
 
-
-    <!-- step4 <script>
-try {
+    <script>
     window.onload = function() {
-        console.log('JS READY ✅');
+        // MAIN MENU
+        document.querySelectorAll('.has-dropdown > .menu-item').forEach(item => {
+            item.onclick = function() {
+                const parent = this.parentElement;
 
-        const titles = document.querySelectorAll('.dropdown-title');
+                // close semua
+                document.querySelectorAll('.has-dropdown').forEach(el => {
+                    if (el !== parent) el.classList.remove('active');
+                });
 
-        titles.forEach(title => {
-            title.onclick = function(e) {
-                e.preventDefault();
+                parent.classList.toggle('active');
+            };
+        });
+
+        // SUB MENU
+        document.querySelectorAll('.has-sub-dropdown > .menu-item').forEach(item => {
+            item.onclick = function(e) {
+                e.stopPropagation();
 
                 const parent = this.parentElement;
                 parent.classList.toggle('active');
-
-                console.log('CLICK');
             };
         });
     };
-} catch (e) {
-    console.error('JS ERROR ❌', e);
-}
-
-
-window.onload = function() {
-
-    // MAIN DROPDOWN
-    document.querySelectorAll('.dropdown-title').forEach(title => {
-        title.onclick = function(e) {
-            e.preventDefault();
-
-            const parent = this.parentElement;
-
-            document.querySelectorAll('.has-dropdown').forEach(el => {
-                if (el !== parent) el.classList.remove('active');
-            });
-
-            parent.classList.toggle('active');
-        };
-    });
-
-    // 🔥 SUB DROPDOWN (INI YANG KURANG)
-    document.querySelectorAll('.dropdown-subtitle').forEach(sub => {
-        sub.onclick = function(e) {
-            e.preventDefault();
-
-            const parent = this.parentElement;
-            parent.classList.toggle('active');
-        };
-    });
-
-};
-
-</script>
- -->
-
-<script>
-window.onload = function() {
-
-    // MAIN MENU
-    document.querySelectorAll('.has-dropdown > .menu-item').forEach(item => {
-        item.onclick = function() {
-
-            const parent = this.parentElement;
-
-            // close semua
-            document.querySelectorAll('.has-dropdown').forEach(el => {
-                if (el !== parent) el.classList.remove('active');
-            });
-
-            parent.classList.toggle('active');
-        };
-    });
-
-    // SUB MENU
-    document.querySelectorAll('.has-sub-dropdown > .menu-item').forEach(item => {
-        item.onclick = function(e) {
-            e.stopPropagation();
-
-            const parent = this.parentElement;
-            parent.classList.toggle('active');
-        };
-    });
-
-};
-</script>
+    </script>
 
 </body>
 
