@@ -13,14 +13,6 @@ use Illuminate\Validation\Rules;
 class RegisterController extends Controller
 {
     /**
-     * Create a new controller instance.
-     */
-    public function __construct()
-    {
-        // Middleware is now handled in routes for Laravel 11
-    }
-
-    /**
      * Show the application's registration form.
      */
     public function showRegistrationForm()

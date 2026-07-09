@@ -10,14 +10,6 @@ use Illuminate\Validation\ValidationException;
 class LoginController extends Controller
 {
     /**
-     * Create a new controller instance.
-     */
-    public function __construct()
-    {
-        // Middleware is now handled in routes for Laravel 11
-    }
-
-    /**
      * Show the application's login form.
      */
     public function showLoginForm()

@@ -158,7 +158,9 @@ class NewsController extends Controller
             $validatedData['featured_image'] = $imagePath;
         }
         // If no new image and no remove request, keep the existing image
-        // Don't set featured_image in validatedData to preserve existing value
+        else {
+            unset($validatedData['featured_image']);
+        }
         
         // Handle published_at
         if ($validatedData['status'] === 'published' && !$validatedData['published_at']) {

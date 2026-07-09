@@ -11,9 +11,6 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 
-
-
-
 // Halaman Utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -29,7 +26,7 @@ Route::get('/profile', function () {
 })->name('profile');
 
 // Halaman Hubungi Kami
-Route::get('/hubungikami', [ContactController::class, 'show'])->name('contact');
+Route::get('/hubungikami', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/hubungikami', [ContactController::class, 'submit'])->name('contact.submit');
 
 // Halaman Galeri (menggantikan layanan)
@@ -67,18 +64,16 @@ Route::middleware('guest')->group(function () {
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
-
- Route::get('/survey', [SurveyController::class, 'index']);
 // Admin Routes
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:super-admin|admin'])->group(function () {
-    
+
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/visitors/export', [DashboardController::class, 'exportVisitorsYear'])->name('dashboard.visitors.export');
-    
+
     // Books Management
     Route::resource('books', AdminBookController::class);
-    
+
     // News Management
     Route::resource('news', AdminNewsController::class);
     Route::post('news/{news}/publish', [AdminNewsController::class, 'publish'])->name('news.publish');
@@ -88,8 +83,4 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:super-admin|ad
 
     // Complaints Management
     Route::resource('complaints', AdminComplaintController::class)->only(['index', 'show', 'update']);
-
-
-   
-
 });

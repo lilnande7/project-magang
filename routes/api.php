@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\BookController;
+use App\Http\Controllers\API\ChatbotController;
 use App\Http\Controllers\API\CategoryController;
 
 /*
@@ -34,6 +35,10 @@ Route::prefix('v1')->group(function () {
     // Search endpoint
     Route::get('search', [BookController::class, 'index'])
         ->name('api.search');
+
+    // Chatbot endpoint
+    Route::post('chatbot', [ChatbotController::class, 'chat'])
+        ->name('chatbot.chat');
         
     // OPAC API - Public book search
     Route::prefix('opac')->group(function () {

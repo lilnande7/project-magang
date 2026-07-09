@@ -133,7 +133,7 @@
         <div class="search-content" data-animate="fadeInLeft">
             <span class="section-label">Pencarian Koleksi</span>
             <h2>Temukan referensi terbaik dalam hitungan detik</h2>
-            <p>Lebih dari {{ number_format($stats['total_books'] ?? 0) }} buku, jurnal, dan repository dapat kamu jelajahi secara daring.</p>
+            <p>Lebih dari 5200 buku, jurnal, dan repository dapat kamu jelajahi secara daring.</p>
             <ul class="search-highlights">
                 <li><i class="fas fa-bolt"></i> Pencarian lintas judul, penulis, dan kata kunci</li>
                 <li><i class="fas fa-cloud"></i> Koleksi digital tersedia 24/7</li>
@@ -141,15 +141,24 @@
             </ul>
         </div>
         <div class="search-form-wrapper" data-animate="fadeInRight">
-            <form action="https://digilib.ppicurug.ac.id" method="GET" class="search-form" target="_blank">
-                <label>Cari katalog</label>
-                <div class="search-input-group">
-                    <i class="fas fa-search"></i>
-                    <input type="text" name="q" placeholder="Masukkan judul, penulis, atau kata kunci...">
-                </div>
-                <button type="submit" class="btn-search">Mulai Telusuri</button>
-            </form>
+    <form action="https://digilib.ppicurug.ac.id/index.php" method="GET" class="search-form" target="_blank">
+        <label>Cari katalog</label>
+
+        <div class="search-input-group">
+            <i class="fas fa-search"></i>
+            <input type="text"
+                   name="keywords"
+                   placeholder="Masukkan judul, penulis, atau kata kunci..."
+                   required>
         </div>
+
+        <input type="hidden" name="search" value="search">
+
+        <button type="submit" class="btn-search">
+            Mulai Telusuri
+        </button>
+    </form>
+</div>
     </div>
 </section>
 
@@ -173,7 +182,7 @@
             <ul>
                 <li>Layanan sirkulasi & reservasi ruang</li>
                 <li>Repositori tugas akhir & jurnal</li>
-                <li>Wifi berkecepatan tinggi & spot diskusi</li>
+                <li>Wifi yang memadai & spot diskusi</li>
             </ul>
         </article>
         <article class="feature-card" data-animate="fadeInUp" data-delay="300">
@@ -394,11 +403,204 @@
     </div>
 </section>
 
+{{-- ===== CHATBOT WIDGET ===== --}}
+<div class="chatbot-widget" data-chatbot-widget>
+    <button type="button" class="chatbot-bubble" data-chatbot-toggle aria-expanded="false" aria-controls="chatbotPanel">
+        <span class="chatbot-bubble-icon">
+            <img src="{{ asset('images/chatbot.png') }}" alt="Chatbot" loading="lazy">
+        </span>
+    </button>
+
+    <div class="chatbot-panel" id="chatbotPanel" data-chatbot-panel hidden>
+        <div class="chatbot-header">
+            <div>
+                <span class="chatbot-eyebrow">Asisten Digital</span>
+                <h3>Tanya Avialib</h3>
+            </div>
+            <button type="button" class="chatbot-close" data-chatbot-toggle aria-label="Tutup chatbot">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="chatbot-status">
+            <span class="status-dot"></span>
+            Kami siap membantu! Tanyakan tentang buku, jurnal, atau koleksi lainnya.
+        </div>
+
+        <div class="chatbot-messages" data-chatbot-messages>
+            <div class="chatbot-message bot">
+                <p>Halo, Saya Asisten Digital Avialib. 
+                    Kami dapat membantu Anda menemukan buku, jurnal, dan informasi terkait perpustakaan. Silakan ketik pertanyaan Anda di bawah ini.
+                </p>
+            </div>
+        </div>
+
+        <form class="chatbot-input-area" data-chatbot-form>
+            <label for="chatbotInput" class="sr-only">Ketik pertanyaan Anda</label>
+            <textarea id="chatbotInput" rows="2" placeholder="contoh : Dimana letak buku Lubrication?"></textarea>
+            <button type="submit" class="chatbot-send">
+                <i class="fas fa-paper-plane"></i>
+                Kirim
+            </button>
+        </form>
+    </div>
+</div>
+
 @endsection
 
 @section('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    var chatbotWidget = document.querySelector('[data-chatbot-widget]');
+    var chatbotPanel = document.querySelector('[data-chatbot-panel]');
+    var chatbotMessages = document.querySelector('[data-chatbot-messages]');
+    var chatbotForm = document.querySelector('[data-chatbot-form]');
+    var chatbotInput = document.getElementById('chatbotInput');
+    var chatbotToggles = document.querySelectorAll('[data-chatbot-toggle]');
+    var chatbotHistory = [];
+
+    function scrollChatToBottom() {
+        if (!chatbotMessages) {
+            return;
+        }
+
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function appendMessage(role, content) {
+        if (!chatbotMessages || !content) {
+            return;
+        }
+
+        var message = document.createElement('div');
+        message.className = 'chatbot-message ' + role;
+        var paragraph = document.createElement('p');
+
+        if (role === 'bot') {
+            paragraph.innerHTML = formatBotMessage(content);
+        } else {
+            paragraph.textContent = content;
+        }
+
+        message.appendChild(paragraph);
+        chatbotMessages.appendChild(message);
+        scrollChatToBottom();
+    }
+
+    function escapeHtml(text) {
+        return String(text || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    function formatBotMessage(text) {
+        var escaped = escapeHtml(text);
+
+        // Tangani respons satu baris agar label penting tetap terpisah rapi.
+        escaped = escaped
+            .replace(/\*\*Buku ditemukan\*\*\s*\*\*Judul\*\*/gi, '**Buku ditemukan**\n\n**Judul**')
+            .replace(/\s+\*\*(Judul|Nomor Panggil|Lokasi Rak|Status)\*\*\s*:/gi, '\n\n**$1** :');
+
+        escaped = escaped.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        escaped = escaped.replace(/\n/g, '<br>');
+
+        return escaped;
+    }
+
+    function setChatbotState(isOpen) {
+        if (!chatbotWidget || !chatbotPanel) {
+            return;
+        }
+
+        chatbotWidget.classList.toggle('is-open', isOpen);
+        chatbotPanel.hidden = !isOpen;
+
+        chatbotToggles.forEach(function(toggle) {
+            toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+    }
+
+    chatbotToggles.forEach(function(toggle) {
+        toggle.addEventListener('click', function() {
+            var isOpen = chatbotWidget.classList.contains('is-open');
+            setChatbotState(!isOpen);
+
+            if (!isOpen && chatbotInput) {
+                setTimeout(function() {
+                    chatbotInput.focus();
+                }, 150);
+            }
+        });
+    });
+
+    if (chatbotForm) {
+        chatbotForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            if (!chatbotInput) {
+                return;
+            }
+
+            var message = chatbotInput.value.trim();
+
+            if (!message) {
+                return;
+            }
+
+            appendMessage('user', message);
+            chatbotHistory.push({ role: 'user', content: message });
+            chatbotInput.value = '';
+
+            appendMessage('bot', 'Sedang memproses jawaban...');
+            var loadingMessage = chatbotMessages ? chatbotMessages.lastElementChild : null;
+
+            fetch('/api/v1/chatbot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: message,
+                    history: chatbotHistory.slice(-8)
+                })
+            })
+            .then(function(response) {
+                return response.json().then(function(payload) {
+                    if (!response.ok) {
+                        throw new Error(payload.message || 'Gagal memproses permintaan chatbot.');
+                    }
+
+                    return payload;
+                });
+            })
+            .then(function(payload) {
+                if (loadingMessage) {
+                    loadingMessage.remove();
+                }
+
+                var reply = payload.message || 'Maaf, saya belum mendapatkan jawaban.';
+                appendMessage('bot', reply);
+                chatbotHistory.push({ role: 'assistant', content: reply });
+            })
+            .catch(function(error) {
+                if (loadingMessage) {
+                    loadingMessage.remove();
+                }
+
+                appendMessage('bot', error.message || 'Terjadi kesalahan saat menghubungi chatbot.');
+            });
+        });
+    }
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            setChatbotState(false);
+        }
+    });
 
     // ===== HERO BACKGROUND SLIDESHOW =====
     var slides = document.querySelectorAll('.hero-slide');
