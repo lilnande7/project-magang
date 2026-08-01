@@ -13,19 +13,25 @@ class Borrowing extends Model
     protected $fillable = [
         'user_id',
         'book_id',
+        'requested_at',
         'borrowed_at',
         'due_date',
         'returned_at',
         'status',
         'fine_amount',
-        'notes'
+        'notes',
+        'approved_by',
+        'approved_at',
+        'rejection_reason',
     ];
     
     protected $casts = [
-        'borrowed_at' => 'date',
-        'due_date' => 'date',
-        'returned_at' => 'date',
-        'fine_amount' => 'decimal:2',
+        'requested_at' => 'date:Y-m-d',
+        'borrowed_at'  => 'date:Y-m-d',
+        'due_date'     => 'date:Y-m-d',
+        'returned_at'  => 'date:Y-m-d',
+        'approved_at'  => 'datetime',
+        'fine_amount'  => 'decimal:2',
     ];
     
     // Relationships
@@ -38,13 +44,28 @@ class Borrowing extends Model
     {
         return $this->belongsTo(Book::class);
     }
+
+    public function approvedBy()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
     
     // Scopes
+    public function scopePending($query)
+    {
+        return $query->where('status', 'pending');
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', 'active');
     }
-    
+
+    public function scopeRejected($query)
+    {
+        return $query->where('status', 'rejected');
+    }
+
     public function scopeOverdue($query)
     {
         return $query->where('status', 'active')

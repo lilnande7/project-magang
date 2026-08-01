@@ -4,10 +4,6 @@
 
         {{-- Kolom 1 --}}
         <div class="footer-about">
-            <img src="{{ asset('images/logo3.png') }}"
-                alt="Logo Perpustakaan PPIC"
-                class="footer-logo">
-
             <h3>Perpustakaan PPIC</h3>
             <p>
                 Unit dokumentasi dan informasi yang mendukung
@@ -30,7 +26,7 @@
             <h4>Kontak</h4>
             <p>📍 Curug, Tangerang</p>
             <p>📧 perpustakaan@ppic.ac.id</p>
-            <p>🕘 Senin – Jumat, 08.00 – 16.00</p>
+            <p>🕘 Senin – Jumat, 08.00 – 17.00</p>
         </div>
 
     </div>

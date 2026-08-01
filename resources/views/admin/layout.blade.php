@@ -177,6 +177,18 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('admin.borrowings.*') ? 'active' : '' }}" 
+                   href="{{ route('admin.borrowings.index') }}">
+                    <i class="bi bi-journal-bookmark"></i>
+                    <span class="sidebar-text ms-2">Peminjaman</span>
+                    @php $pendingCount = \App\Models\Borrowing::pending()->count(); @endphp
+                    @if($pendingCount > 0)
+                        <span class="badge bg-warning text-dark ms-1" style="font-size:.7rem;">{{ $pendingCount }}</span>
+                    @endif
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('admin.complaints.*') ? 'active' : '' }}" 
                    href="{{ route('admin.complaints.index') }}">
                     <i class="bi bi-chat-left-text"></i>

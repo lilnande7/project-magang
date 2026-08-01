@@ -11,7 +11,7 @@ class Book extends Model
     
     protected $fillable = [
         'title',
-        'author', 
+        'author',
         'isbn',
         'publisher',
         'year',
@@ -23,7 +23,17 @@ class Book extends Model
         'category_id',
         'cover_image',
         'subjects',
-        'stock'
+        'stock',
+        // Biblio SLiMS
+        'gmd_name',
+        'call_number',
+        'place_name',
+        'classification',
+        'series_title',
+        'collation',
+        'cover_url',
+        'item_code',
+        'topics',
     ];
     
     protected $casts = [

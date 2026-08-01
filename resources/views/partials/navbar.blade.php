@@ -45,8 +45,19 @@
                     <a href="{{ route('home') }}">HOME</a>
                 </li>
                 
-                <li class="{{ request()->routeIs('profile') ? 'active' : '' }}">
-                    <a href="{{ route('profile') }}">PROFILE</a>
+               <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        PROFILE <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ route('profile.sejarah') }}">Sejarah</a></li>
+                        <li><a href="{{ route('profile.struktur-organisasi') }}">Struktur Organisasi</a></li>
+                        <li><a href="{{ route('profile.visi-misi') }}">Visi Misi</a></li>
+                        <li><a href="{{ route('profile.tata-tertib') }}">Tata Tertib</a></li>
+                        <li><a href="{{ route('profile.akreditasi') }}">Akreditasi</a></li>
+                        <li><a href="{{ route('profile.npp') }}">Nomor Pokok Perpustakaan</a></li>
+                        <li><a href="{{ route('contact.index') }}">Kontak</a></li>
+                    </ul>
                 </li>
 
                 {{-- Layanan Kami Dropdown (Megamenu) --}}
