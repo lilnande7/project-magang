@@ -1,0 +1,193 @@
+/* ============================
+   PROFILE SUB-PAGES — Shared CSS
+   ============================ */
+
+/* -------- Hero (reuse dari profile.css) -------- */
+.page-hero--sejarah       { background-image: url('../images/perpuslabbahasa.png'); }
+.page-hero--struktur      { background-image: url('../images/perpuslabbahasa.png'); }
+.page-hero--visi-misi     { background-image: url('../images/perpuslabbahasa.png'); }
+.page-hero--tata-tertib   { background-image: url('../images/perpuslabbahasa.png'); }
+.page-hero--akreditasi    { background-image: url('../images/perpuslabbahasa.png'); }
+.page-hero--npp           { background-image: url('../images/perpuslabbahasa.png'); }
+
+/* -------- Breadcrumb -------- */
+.profile-breadcrumb {
+    padding: 0;
+    margin: 0 0 8px;
+    list-style: none;
+    display: flex;
+    gap: 8px;
+    font-size: .88rem;
+}
+.profile-breadcrumb li { display: flex; align-items: center; gap: 8px; }
+.profile-breadcrumb a  { color: rgba(255,255,255,.7); text-decoration: none; }
+.profile-breadcrumb a:hover { color: #fff; }
+.profile-breadcrumb .sep { color: rgba(255,255,255,.4); }
+.profile-breadcrumb .current { color: #fff; font-weight: 600; }
+
+/* -------- Content Section -------- */
+.profile-content-section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+}
+.profile-content-section h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 16px;
+    line-height: 1.3;
+}
+.profile-content-section h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1e3a5f;
+    margin-top: 32px;
+    margin-bottom: 12px;
+}
+.profile-content-section p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #475569;
+    margin-bottom: 16px;
+}
+.profile-content-section ul,
+.profile-content-section ol {
+    padding-left: 24px;
+    margin-bottom: 16px;
+}
+.profile-content-section li {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #475569;
+    margin-bottom: 8px;
+}
+.profile-content-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin: 20px 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,.1);
+}
+
+/* -------- Info Card -------- */
+.info-card {
+    background: #f8fafd;
+    border-left: 4px solid #1c7ed6;
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    margin: 24px 0;
+}
+.info-card h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1e3a5f;
+    margin-bottom: 8px;
+}
+.info-card p {
+    margin-bottom: 0;
+    color: #555;
+}
+
+/* -------- Highlight Box -------- */
+.highlight-box {
+    background: linear-gradient(135deg, #0f172a, #1e3a5f);
+    border-radius: 16px;
+    padding: 32px;
+    color: #fff;
+    margin: 32px 0;
+}
+.highlight-box h3 { color: #fff; margin-top: 0; }
+.highlight-box p  { color: rgba(255,255,255,.85); }
+.highlight-box ul { padding-left: 20px; }
+.highlight-box li { color: rgba(255,255,255,.85); }
+
+/* -------- Table -------- */
+.profile-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 24px 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+}
+.profile-table thead th {
+    background: #1e3a5f;
+    color: #fff;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: .88rem;
+    font-weight: 600;
+}
+.profile-table tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e9ecef;
+    font-size: .92rem;
+    color: #333;
+}
+.profile-table tbody tr:last-child td { border-bottom: none; }
+.profile-table tbody tr:nth-child(even) { background: #f8fafd; }
+
+/* -------- Org Chart -------- */
+.org-chart-placeholder {
+    background: #f8fafd;
+    border: 2px dashed #cbd5e1;
+    border-radius: 16px;
+    padding: 60px 24px;
+    text-align: center;
+    margin: 24px 0;
+    color: #94a3b8;
+}
+.org-chart-placeholder i { font-size: 3rem; margin-bottom: 12px; display: block; }
+.org-chart-placeholder p { font-size: .95rem; margin: 0; }
+
+/* -------- Rule List -------- */
+.rule-list { list-style: none; padding: 0; counter-reset: rule; }
+.rule-list li {
+    counter-increment: rule;
+    padding: 14px 16px 14px 56px;
+    position: relative;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    background: #f8fafd;
+    border: 1px solid #e9ecef;
+    transition: all .2s;
+}
+.rule-list li:hover { background: #eff6ff; border-color: #bfdbfe; }
+.rule-list li::before {
+    content: counter(rule);
+    position: absolute;
+    left: 16px; top: 14px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #1c7ed6;
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .78rem; font-weight: 700;
+}
+
+/* -------- NPP Badge -------- */
+.npp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #1c7ed6, #1565b8);
+    color: #fff;
+    padding: 16px 28px;
+    border-radius: 12px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin: 20px 0;
+    box-shadow: 0 4px 16px rgba(28,126,214,.3);
+}
+.npp-badge i { font-size: 1.6rem; }
+
+/* -------- Mobile -------- */
+@media (max-width: 768px) {
+    .profile-content-section { padding: 40px 16px 60px; }
+    .profile-content-section h2 { font-size: 1.4rem; }
+    .highlight-box { padding: 20px; }
+    .npp-badge { font-size: 1rem; padding: 12px 20px; letter-spacing: 1px; }
+}

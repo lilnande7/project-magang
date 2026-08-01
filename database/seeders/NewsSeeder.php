@@ -97,11 +97,11 @@ class NewsSeeder extends Seeder
 <h3>Jam Operasional Baru:</h3>
 <ul>
 <li><strong>Senin - Jumat:</strong> 07.00 - 20.00 WIB</li>
-<li><strong>Sabtu:</strong> 08.00 - 16.00 WIB</li>
+<li><strong>Sabtu:</strong> 08.00 - 17.00 WIB</li>
 <li><strong>Minggu:</strong> Tutup (kecuali ada jadwal khusus)</li>
 </ul>
 
-<p>Layanan perpustakaan pada jam tambahan (16.00-20.00) meliputi:</p>
+<p>Layanan perpustakaan pada jam tambahan (17.00-20.00) meliputi:</p>
 <ul>
 <li>Akses ruang baca dan koleksi</li>
 <li>Layanan komputer dan internet</li>

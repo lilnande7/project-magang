@@ -67,25 +67,6 @@
                 <a href="https://digilib.ppicurug.ac.id" target="_blank" class="btn-hero-secondary">Katalog Online</a>
             </div>
 
-            {{-- <div class="hero-metrics">
-                <div class="metric-card">
-                    <span class="metric-label">Koleksi</span>
-                    <span class="metric-value">{{ number_format($stats['total_books'] ?? 0) }}</span>
-                    <small>Total Buku</small>
-                </div>
-                <div class="metric-card">
-                    <span class="metric-label">Kategori</span>
-                    <span class="metric-value">{{ number_format($stats['total_categories'] ?? 0) }}</span>
-                    <small>Bidang Bahasan</small>
-                </div>
-                <div class="metric-card">
-                    <span class="metric-label">Anggota</span>
-                    <span class="metric-value">{{ number_format($stats['total_members'] ?? 0) }}</span>
-                    <small>Aktif Terdaftar</small>
-                </div>
-            </div>
-        </div> --}}
-
         <div class="hero-right">
             <div class="hero-card hero-hours" data-animate="fadeInUp" data-delay="200">
                 <div class="card-label">Jadwal Layanan</div>
@@ -655,7 +636,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var slideContent = [
         {
             main: 'Perpustakaan',
-            sub: 'Pusat layanan informasi dan dokumentasi yang mendukung pendidikan, penelitian, dan inovasi.'
+            sub: 'Pusat layanan informasi dan dokumentasi yang mendukung pendidikan.'
         },
         {
             main: 'Knowledge Hub',

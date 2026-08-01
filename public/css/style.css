@@ -330,10 +330,12 @@ nav.navbar.bootsnav .megamenu-content {
     box-shadow: 0 20px 60px rgba(3,7,18,0.18);
 }
 
-/* Center megamenu under navbar */
-nav.navbar.bootsnav .megamenu-fw .dropdown-menu {
-    left: 75%;
-    transform: translateX(-50%);
+/* Center megamenu under navbar (Desktop Only) */
+@media (min-width: 992px) {
+    nav.navbar.bootsnav .megamenu-fw .dropdown-menu {
+        left: 75%;
+        transform: translateX(-50%);
+    }
 }
 
 nav.navbar.bootsnav .megamenu-content .row {
@@ -423,8 +425,8 @@ nav.navbar.bootsnav .megamenu-content .menu-col li a:hover {
         display: flex;
     }
 
-    .dropdown,
-    .sub-dropdown {
+    .has-dropdown .dropdown,
+    .has-sub-dropdown .sub-dropdown {
         position: static;
         min-width: 100%;
         box-shadow: none;
@@ -601,13 +603,13 @@ nav.navbar.bootsnav .megamenu-content .menu-col li a:hover {
    }
 
    /* default hidden */
-   .dropdown,
-   .sub-dropdown {
-       display: none !important;
-       position: static !important; 
-       width: 100%;
-       padding-left: 10px;
-   }
+    .has-dropdown .dropdown,
+    .has-sub-dropdown .sub-dropdown {
+        display: none !important;
+        position: static !important; 
+        width: 100%;
+        padding-left: 10px;
+    }
 
    /* saat diklik */
    .has-dropdown.active>.dropdown {
@@ -924,8 +926,8 @@ nav.navbar.bootsnav .megamenu-content .menu-col li a:hover {
 }
 
 /* DROPDOWN */
-.dropdown,
-.sub-dropdown {
+.has-dropdown .dropdown,
+.has-sub-dropdown .sub-dropdown {
     display: none;
 }
 

@@ -117,7 +117,7 @@
 
                     <p>
                         Senin - Jumat<br>
-                        08.00 - 16.00
+                        08.00 - 17.00
                     </p>
 
                     <span class="closed">

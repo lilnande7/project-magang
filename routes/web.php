@@ -6,10 +6,12 @@ use App\Http\Controllers\Admin\BookController as AdminBookController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
+use App\Http\Controllers\Admin\BorrowingController as AdminBorrowingController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CatalogController;
 
 // Halaman Utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -24,6 +26,31 @@ Route::get('/profile', function () {
         'title' => 'Profile - Perpustakaan PPIC'
     ]);
 })->name('profile');
+
+// Sub-halaman Profile
+Route::get('/profile/sejarah', function () {
+    return view('profile.sejarah', ['title' => 'Sejarah - Perpustakaan PPIC']);
+})->name('profile.sejarah');
+
+Route::get('/profile/struktur-organisasi', function () {
+    return view('profile.struktur-organisasi', ['title' => 'Struktur Organisasi - Perpustakaan PPIC']);
+})->name('profile.struktur-organisasi');
+
+Route::get('/profile/visi-misi', function () {
+    return view('profile.visi-misi', ['title' => 'Visi & Misi - Perpustakaan PPIC']);
+})->name('profile.visi-misi');
+
+Route::get('/profile/tata-tertib', function () {
+    return view('profile.tata-tertib', ['title' => 'Tata Tertib - Perpustakaan PPIC']);
+})->name('profile.tata-tertib');
+
+Route::get('/profile/akreditasi', function () {
+    return view('profile.akreditasi', ['title' => 'Akreditasi - Perpustakaan PPIC']);
+})->name('profile.akreditasi');
+
+Route::get('/profile/npp', function () {
+    return view('profile.npp', ['title' => 'Nomor Pokok Perpustakaan - Perpustakaan PPIC']);
+})->name('profile.npp');
 
 // Halaman Hubungi Kami
 Route::get('/hubungikami', [ContactController::class, 'index'])->name('contact.index');
@@ -54,6 +81,17 @@ Route::get('/opac/detail/{id}', function ($id) {
     ]);
 })->name('opac.detail');
 
+// === KATALOG BUKU (public + auth) ===
+Route::get('/katalog', [CatalogController::class, 'index'])->name('catalog.index');
+Route::get('/katalog/{book}', [CatalogController::class, 'show'])->name('catalog.show');
+
+// Route yang butuh login
+Route::middleware('auth')->group(function () {
+    Route::post('/katalog/{book}/pinjam', [CatalogController::class, 'requestBorrow'])->name('catalog.borrow');
+    Route::get('/peminjaman-saya', [CatalogController::class, 'myBorrowings'])->name('catalog.my-borrowings');
+    Route::delete('/peminjaman/{borrowing}/batal', [CatalogController::class, 'cancelRequest'])->name('catalog.cancel');
+});
+
 // Authentication Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -83,4 +121,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:super-admin|ad
 
     // Complaints Management
     Route::resource('complaints', AdminComplaintController::class)->only(['index', 'show', 'update']);
+
+    // Borrowings Management (admin approval)
+    Route::get('/peminjaman', [AdminBorrowingController::class, 'index'])->name('borrowings.index');
+    Route::get('/peminjaman/{borrowing}', [AdminBorrowingController::class, 'show'])->name('borrowings.show');
+    Route::post('/peminjaman/{borrowing}/approve', [AdminBorrowingController::class, 'approve'])->name('borrowings.approve');
+    Route::post('/peminjaman/{borrowing}/reject', [AdminBorrowingController::class, 'reject'])->name('borrowings.reject');
+    Route::post('/peminjaman/{borrowing}/return', [AdminBorrowingController::class, 'returnBook'])->name('borrowings.return');
 });
