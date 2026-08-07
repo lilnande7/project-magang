@@ -106,7 +106,7 @@ class DashboardController extends Controller
     private function getBooksByCategoryData()
     {
         return Category::withCount('books')
-            ->having('books_count', '>', 0)
+            ->has('books')
             ->orderBy('books_count', 'desc')
             ->get();
     }
@@ -115,11 +115,19 @@ class DashboardController extends Controller
     {
         $monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
 
-        $totalsByMonth = VisitorLog::query()
-            ->selectRaw('MONTH(visited_on) as month, COUNT(*) as total')
-            ->whereYear('visited_on', $year)
-            ->groupBy('month')
-            ->pluck('total', 'month');
+        if (\DB::getDriverName() === 'sqlite') {
+            $totalsByMonth = VisitorLog::query()
+                ->selectRaw('cast(strftime("%m", visited_on) as integer) as month, COUNT(*) as total')
+                ->whereYear('visited_on', $year)
+                ->groupBy('month')
+                ->pluck('total', 'month');
+        } else {
+            $totalsByMonth = VisitorLog::query()
+                ->selectRaw('MONTH(visited_on) as month, COUNT(*) as total')
+                ->whereYear('visited_on', $year)
+                ->groupBy('month')
+                ->pluck('total', 'month');
+        }
 
         $labels = $monthNames;
         $data = [];

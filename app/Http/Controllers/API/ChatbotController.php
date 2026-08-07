@@ -8,10 +8,78 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use OpenApi\Attributes as OA;
 use SplFileObject;
 
 class ChatbotController extends Controller
 {
+    #[OA\Post(
+        path: '/chatbot',
+        summary: 'Chatbot AI referensi perpustakaan',
+        description: 'Mengirim pesan ke asisten AI perpustakaan yang didukung oleh Google Gemini. Chatbot dapat menjawab pertanyaan seputar koleksi buku, lokasi rak, ketersediaan, dan informasi perpustakaan umum. Chatbot juga memiliki fallback ke dataset Senayan lokal untuk pencarian judul buku secara cepat.',
+        tags: ['Chatbot'],
+        requestBody: new OA\RequestBody(
+            required: true,
+            description: 'Pesan pengguna dan riwayat percakapan',
+            content: new OA\JsonContent(
+                required: ['message'],
+                properties: [
+                    new OA\Property(
+                        property: 'message',
+                        type: 'string',
+                        maxLength: 1000,
+                        example: 'Ada buku tentang sistem navigasi pesawat?',
+                        description: 'Pesan / pertanyaan dari pengguna'
+                    ),
+                    new OA\Property(
+                        property: 'history',
+                        type: 'array',
+                        nullable: true,
+                        description: 'Riwayat percakapan sebelumnya (maks 10 pesan)',
+                        items: new OA\Items(
+                            properties: [
+                                new OA\Property(property: 'role',    type: 'string', enum: ['user', 'assistant', 'model'], example: 'user'),
+                                new OA\Property(property: 'content', type: 'string', maxLength: 2000, example: 'Halo, saya butuh bantuan'),
+                            ]
+                        )
+                    ),
+                ]
+            )
+        ),
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Chatbot berhasil membalas pesan',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'status',  type: 'string', example: 'success'),
+                        new OA\Property(
+                            property: 'message',
+                            type: 'string',
+                            example: "📚 **Buku ditemukan**\n\n**Judul** : Sistem Navigasi Udara\n**Nomor Panggil** : 629.13\n**Lokasi Rak** : Rak A-5\n**Status** : ✅ Tersedia"
+                        ),
+                        new OA\Property(
+                            property: 'source',
+                            type: 'string',
+                            enum: ['senayan_dataset', 'gemini_ai'],
+                            example: 'gemini_ai',
+                            description: 'Sumber jawaban: dataset lokal Senayan atau Gemini AI'
+                        ),
+                    ]
+                )
+            ),
+            new OA\Response(
+                response: 422,
+                description: 'Validasi gagal (pesan kosong atau terlalu panjang)',
+                content: new OA\JsonContent(ref: '#/components/schemas/ErrorResponse')
+            ),
+            new OA\Response(
+                response: 503,
+                description: 'Gemini API tidak tersedia atau konfigurasi belum ada',
+                content: new OA\JsonContent(ref: '#/components/schemas/ErrorResponse')
+            ),
+        ]
+    )]
     public function chat(Request $request): JsonResponse
     {
         $validated = $request->validate([

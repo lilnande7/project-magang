@@ -210,6 +210,33 @@
                     <span class="sidebar-text ms-2">View Site</span>
                 </a>
             </li>
+
+            {{-- Divider --}}
+            <li class="nav-item">
+                <hr style="border-color:rgba(255,255,255,.1);margin:8px 16px">
+                <small class="sidebar-text d-block px-3 pb-1" style="color:rgba(255,255,255,.35);font-size:10px;text-transform:uppercase;letter-spacing:.8px">Big Data</small>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('admin.etl.*') ? 'active' : '' }}"
+                   href="{{ route('admin.etl.index') }}"
+                   title="ETL Import Dataset SLiMS">
+                    <i class="bi bi-database-up"></i>
+                    <span class="sidebar-text ms-2">ETL Import</span>
+                </a>
+            </li>
+
+            {{-- Divider --}}
+            <li class="nav-item my-1"><hr style="border-color:rgba(255,255,255,.15);margin:6px 12px"></li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('api/documentation') }}" target="_blank"
+                   title="Swagger API Documentation">
+                    <i class="bi bi-file-earmark-code"></i>
+                    <span class="sidebar-text ms-2">API Docs <i class="bi bi-box-arrow-up-right" style="font-size:10px;opacity:.7"></i></span>
+                </a>
+            </li>
         </ul>
     </nav>
     
@@ -260,7 +287,7 @@
                 </div>
             @endif
             
-            @if($errors->any())
+            @if(isset($errors) && $errors->any())
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <i class="bi bi-exclamation-triangle me-2"></i>
                     <strong>Please fix the following errors:</strong>

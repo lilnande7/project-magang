@@ -7,11 +7,13 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
 use App\Http\Controllers\Admin\BorrowingController as AdminBorrowingController;
+use App\Http\Controllers\Admin\EtlImportController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\StatistikController;
 
 // Halaman Utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -62,6 +64,12 @@ Route::get('/galeri0', function () {
         'title' => 'Galeri - Perpustakaan PPIC'
     ]);
 })->name('gallery');
+
+// Halaman Statistik & Analitik Publik (Big Data) — hanya staff perpustakaan
+Route::middleware(['auth', 'role:super-admin|admin|librarian'])->group(function () {
+    Route::get('/statistik', [StatistikController::class, 'index'])->name('statistik.index');
+    Route::get('/statistik/api-data', [StatistikController::class, 'apiData'])->name('statistik.api');
+});
 
 // Redirect legacy layanan URL
 Route::redirect('/layanan', '/galeri0', 301);
@@ -122,10 +130,24 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:super-admin|ad
     // Complaints Management
     Route::resource('complaints', AdminComplaintController::class)->only(['index', 'show', 'update']);
 
+    Route::get('/test-email', function () {
+    Mail::raw('SMTP Gmail berhasil!', function ($message) {
+        $message->to('tujuan@gmail.com')
+                ->subject('Test Email Laravel');
+    });
+
+    return 'Email terkirim';
+});
     // Borrowings Management (admin approval)
     Route::get('/peminjaman', [AdminBorrowingController::class, 'index'])->name('borrowings.index');
     Route::get('/peminjaman/{borrowing}', [AdminBorrowingController::class, 'show'])->name('borrowings.show');
     Route::post('/peminjaman/{borrowing}/approve', [AdminBorrowingController::class, 'approve'])->name('borrowings.approve');
     Route::post('/peminjaman/{borrowing}/reject', [AdminBorrowingController::class, 'reject'])->name('borrowings.reject');
     Route::post('/peminjaman/{borrowing}/return', [AdminBorrowingController::class, 'returnBook'])->name('borrowings.return');
+
+    // ETL Import — SLiMS Dataset
+    Route::get('/etl-import',          [EtlImportController::class, 'index'])->name('etl.index');
+    Route::post('/etl-import/preview',  [EtlImportController::class, 'preview'])->name('etl.preview');
+    Route::post('/etl-import/run',      [EtlImportController::class, 'run'])->name('etl.run');
+    Route::post('/etl-import/chunk',    [EtlImportController::class, 'runChunk'])->name('etl.chunk');
 });
