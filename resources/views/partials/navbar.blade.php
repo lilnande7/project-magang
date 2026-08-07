@@ -109,6 +109,16 @@
                     <a href="{{ route('contact.index') }}">HUBUNGI KAMI</a>
                 </li>
 
+                @auth
+                    @if(Auth::user()->hasRole(['super-admin', 'admin', 'librarian']))
+                    <li class="{{ request()->routeIs('statistik.*') ? 'active' : '' }}">
+                        <a href="{{ route('statistik.index') }}" title="Statistik & Analitik Big Data Perpustakaan">
+                            <i class="fas fa-chart-bar" style="margin-right:4px"></i>STATISTIK
+                        </a>
+                    </li>
+                    @endif
+                @endauth
+
                 <li>
                     <a href="https://digilib.ppicurug.ac.id" target="_blank" rel="noopener noreferrer">
                         OPAC

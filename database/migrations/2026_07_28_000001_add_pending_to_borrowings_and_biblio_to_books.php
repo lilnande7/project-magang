@@ -26,7 +26,9 @@ return new class extends Migration
 
         // 2. Ubah enum status borrowings: tambah 'pending' dan 'rejected'
         //    MySQL tidak bisa modify enum langsung — pakai DB::statement
-        \DB::statement("ALTER TABLE borrowings MODIFY COLUMN status ENUM('pending','active','returned','overdue','rejected') NOT NULL DEFAULT 'pending'");
+        if (\DB::getDriverName() !== 'sqlite') {
+            \DB::statement("ALTER TABLE borrowings MODIFY COLUMN status ENUM('pending','active','returned','overdue','rejected') NOT NULL DEFAULT 'pending'");
+        }
 
         // 3. Tambah kolom tambahan untuk alur approval
         Schema::table('borrowings', function (Blueprint $table) {
@@ -49,7 +51,9 @@ return new class extends Migration
             $table->dropColumn(['approved_by', 'approved_at', 'rejection_reason', 'requested_at']);
         });
 
-        \DB::statement("ALTER TABLE borrowings MODIFY COLUMN status ENUM('active','returned','overdue') NOT NULL DEFAULT 'active'");
+        if (\DB::getDriverName() !== 'sqlite') {
+            \DB::statement("ALTER TABLE borrowings MODIFY COLUMN status ENUM('active','returned','overdue') NOT NULL DEFAULT 'active'");
+        }
 
         Schema::table('books', function (Blueprint $table) {
             $table->dropColumn([

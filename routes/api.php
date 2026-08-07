@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\BookController;
 use App\Http\Controllers\API\ChatbotController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Public API Routes (no authentication required)
 Route::prefix('v1')->group(function () {
+    
+    // Authentication
+    Route::post('login', [AuthController::class, 'login'])->name('api.login');
     
     // Books API
     Route::apiResource('books', BookController::class);
@@ -52,8 +56,11 @@ Route::prefix('v1')->group(function () {
 // Protected API Routes (requires authentication)
 Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
     
+    // Authentication
+    Route::post('logout', [AuthController::class, 'logout'])->name('api.logout');
+    
     // Admin only routes
-    Route::middleware(['can:admin'])->group(function () {
+    Route::middleware(['role:super-admin|admin'])->group(function () {
         // Book management (create, update, delete)
         Route::post('books', [BookController::class, 'store']);
         Route::put('books/{book}', [BookController::class, 'update']);

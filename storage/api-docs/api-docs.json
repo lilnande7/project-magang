@@ -1,0 +1,1344 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Perpustakaan PPIC API",
+        "description": "REST API untuk Sistem Informasi Perpustakaan Politeknik Penerbangan Indonesia Curug. API ini menyediakan akses ke katalog buku, kategori, dan layanan chatbot AI referensi perpustakaan.",
+        "contact": {
+            "name": "Perpustakaan PPIC",
+            "email": "ppicurug.library@gmail.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api/v1",
+            "description": "API Server v1"
+        },
+        {
+            "url": "/api",
+            "description": "API Server (base)"
+        }
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login API",
+                "description": "Mendapatkan Bearer token (Sanctum) untuk mengakses endpoint API yang dilindungi.",
+                "operationId": "d618a255475240ba3d40cc39692cd924",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "admin@ppic.ac.id"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Berhasil login dan mendapatkan token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Berhasil login"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "1|xyz123..."
+                                        },
+                                        "user": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Kredensial salah",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Logout API",
+                "description": "Menghapus token yang sedang digunakan. **Memerlukan autentikasi (Bearer Token).**",
+                "operationId": "1e357eb2c93a1bdabebcebfa088332bf",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil logout",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Berhasil logout"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Tidak terautentikasi"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/books": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Daftar semua buku",
+                "description": "Mengembalikan daftar buku dengan dukungan pencarian teks, filter kategori, filter status, pengurutan, dan paginasi.",
+                "operationId": "f31a4a8c234eea8c0b2fdcd6634c37ce",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Kata kunci pencarian (judul, pengarang, ISBN, subjek)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "penerbangan"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "Filter berdasarkan ID atau nama kategori",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "2"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Filter berdasarkan status ketersediaan buku",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "available",
+                                "borrowed",
+                                "maintenance",
+                                "lost"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Field untuk pengurutan",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "title",
+                            "enum": [
+                                "title",
+                                "author",
+                                "year",
+                                "created_at"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Arah pengurutan",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "asc",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Jumlah item per halaman (maksimum 50)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 15,
+                            "maximum": 50,
+                            "minimum": 1
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Nomor halaman",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil mengambil daftar buku",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/BookResource"
+                                                    }
+                                                },
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 15
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 145
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "filters": {
+                                            "properties": {
+                                                "categories": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/CategoryResource"
+                                                    }
+                                                },
+                                                "statuses": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "example": [
+                                                        "available",
+                                                        "borrowed",
+                                                        "maintenance",
+                                                        "lost"
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Tambah buku baru",
+                "description": "Menambahkan buku baru ke koleksi perpustakaan. **Memerlukan autentikasi dan hak akses admin.**",
+                "operationId": "3f946db73e3a02e8e2f56f60c398986b",
+                "requestBody": {
+                    "description": "Data buku yang akan ditambahkan",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "author",
+                                    "stock"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Sistem Navigasi Udara",
+                                        "maxLength": 255
+                                    },
+                                    "author": {
+                                        "type": "string",
+                                        "example": "Ahmad Fauzi",
+                                        "maxLength": 255
+                                    },
+                                    "isbn": {
+                                        "type": "string",
+                                        "example": "978-602-111-222-3",
+                                        "nullable": true
+                                    },
+                                    "publisher": {
+                                        "type": "string",
+                                        "example": "Pustaka Ilmu",
+                                        "nullable": true
+                                    },
+                                    "year": {
+                                        "type": "integer",
+                                        "example": 2022,
+                                        "nullable": true,
+                                        "maximum": 2030,
+                                        "minimum": 1900
+                                    },
+                                    "pages": {
+                                        "type": "integer",
+                                        "example": 280,
+                                        "nullable": true,
+                                        "minimum": 1
+                                    },
+                                    "language": {
+                                        "type": "string",
+                                        "example": "Indonesia",
+                                        "nullable": true
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Membahas sistem navigasi modern...",
+                                        "nullable": true
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "Rak B-5",
+                                        "nullable": true
+                                    },
+                                    "stock": {
+                                        "type": "integer",
+                                        "example": 2,
+                                        "minimum": 1
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "default": "available",
+                                        "enum": [
+                                            "available",
+                                            "borrowed",
+                                            "maintenance",
+                                            "lost"
+                                        ]
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": 3,
+                                        "nullable": true
+                                    },
+                                    "subjects": {
+                                        "type": "string",
+                                        "example": "Navigasi, Avionik",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Buku berhasil ditambahkan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Book created successfully"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/BookResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Tidak terautentikasi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Tidak memiliki hak akses",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validasi gagal",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/books/{id}": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Detail buku",
+                "description": "Mengembalikan detail lengkap satu buku berdasarkan ID, termasuk kategori dan riwayat peminjaman.",
+                "operationId": "3184b7ae54e17e29fd5fa3027972790e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID buku",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detail buku berhasil diambil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/BookResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Buku tidak ditemukan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Update data buku",
+                "description": "Memperbarui informasi buku yang sudah ada. **Memerlukan autentikasi dan hak akses admin.**",
+                "operationId": "63f8f46953b2690763bfbaa581da0668",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "author",
+                                    "stock"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Judul Buku Diperbarui"
+                                    },
+                                    "author": {
+                                        "type": "string",
+                                        "example": "Nama Penulis"
+                                    },
+                                    "stock": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "available",
+                                            "borrowed",
+                                            "maintenance",
+                                            "lost"
+                                        ]
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": 2,
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Buku berhasil diperbarui",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Book updated successfully"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/BookResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Tidak terautentikasi"
+                    },
+                    "404": {
+                        "description": "Buku tidak ditemukan"
+                    },
+                    "422": {
+                        "description": "Validasi gagal"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Hapus buku",
+                "description": "Menghapus buku dari koleksi. Tidak dapat dihapus jika masih ada peminjaman aktif. **Memerlukan autentikasi dan hak akses admin.**",
+                "operationId": "c286320eba3b96b72b7baf6cd634ac1f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Buku berhasil dihapus",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Book deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Buku tidak dapat dihapus karena masih dipinjam",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cannot delete book with active borrowings"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Tidak terautentikasi"
+                    },
+                    "404": {
+                        "description": "Buku tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/books-statistics": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Statistik koleksi buku",
+                "description": "Mengembalikan statistik ringkasan koleksi buku: total buku, buku tersedia, buku dipinjam, distribusi per kategori, dan 5 buku terbaru.",
+                "operationId": "02775358bb022f1155df1806a8d517bf",
+                "responses": {
+                    "200": {
+                        "description": "Statistik berhasil diambil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "total_books": {
+                                                    "type": "integer",
+                                                    "example": 5524
+                                                },
+                                                "available_books": {
+                                                    "type": "integer",
+                                                    "example": 4982
+                                                },
+                                                "borrowed_books": {
+                                                    "type": "integer",
+                                                    "example": 542
+                                                },
+                                                "books_by_category": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "category_id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "category_name": {
+                                                                "type": "string",
+                                                                "example": "Teknologi & Teknik"
+                                                            },
+                                                            "count": {
+                                                                "type": "integer",
+                                                                "example": 1200
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "recent_additions": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/BookResource"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Daftar semua kategori",
+                "description": "Mengembalikan seluruh kategori buku yang tersedia, disertai jumlah buku di setiap kategori.",
+                "operationId": "11dc7bee7f8ad5b8d0a6a33493c5ea92",
+                "responses": {
+                    "200": {
+                        "description": "Daftar kategori berhasil diambil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/CategoryResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Tambah kategori baru",
+                "description": "Membuat kategori buku baru. **Memerlukan autentikasi dan hak akses admin.**",
+                "operationId": "54a6ffdc26af23674df1830e868e51ff",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "code"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Ilmu Sosial",
+                                        "maxLength": 255
+                                    },
+                                    "code": {
+                                        "type": "string",
+                                        "example": "ILMU-SOSIAL",
+                                        "maxLength": 20
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Buku-buku ilmu sosial dan kemasyarakatan",
+                                        "nullable": true
+                                    },
+                                    "is_active": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Kategori berhasil dibuat",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Category created successfully"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/CategoryResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Tidak terautentikasi"
+                    },
+                    "422": {
+                        "description": "Validasi gagal (misal: kode sudah dipakai)"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/categories/{id}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Detail kategori",
+                "description": "Mengembalikan detail kategori beserta 10 buku tersedia terbaru dalam kategori tersebut.",
+                "operationId": "4602bca516df6c4d7c7ba512d05885f4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID kategori",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detail kategori berhasil diambil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/components/schemas/CategoryResource"
+                                                },
+                                                {
+                                                    "properties": {
+                                                        "books": {
+                                                            "description": "Hingga 10 buku tersedia di kategori ini",
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/components/schemas/BookResource"
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Kategori tidak ditemukan"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Update kategori",
+                "description": "Memperbarui data kategori. **Memerlukan autentikasi dan hak akses admin.**",
+                "operationId": "90f0ef635a607ebe594515971a2dae8e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "code"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Nama Kategori Baru"
+                                    },
+                                    "code": {
+                                        "type": "string",
+                                        "example": "KODE-BARU"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "is_active": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kategori berhasil diperbarui"
+                    },
+                    "401": {
+                        "description": "Tidak terautentikasi"
+                    },
+                    "404": {
+                        "description": "Kategori tidak ditemukan"
+                    },
+                    "422": {
+                        "description": "Validasi gagal"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Hapus kategori",
+                "description": "Menghapus kategori. Tidak dapat dihapus jika masih memiliki buku. **Memerlukan autentikasi dan hak akses admin.**",
+                "operationId": "b93f91fff584ced6067071304928cdbe",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Kategori berhasil dihapus"
+                    },
+                    "400": {
+                        "description": "Kategori memiliki buku — tidak bisa dihapus",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cannot delete category that has books assigned"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Tidak terautentikasi"
+                    },
+                    "404": {
+                        "description": "Kategori tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/chatbot": {
+            "post": {
+                "tags": [
+                    "Chatbot"
+                ],
+                "summary": "Chatbot AI referensi perpustakaan",
+                "description": "Mengirim pesan ke asisten AI perpustakaan yang didukung oleh Google Gemini. Chatbot dapat menjawab pertanyaan seputar koleksi buku, lokasi rak, ketersediaan, dan informasi perpustakaan umum. Chatbot juga memiliki fallback ke dataset Senayan lokal untuk pencarian judul buku secara cepat.",
+                "operationId": "10c265056b21c39a23ef6b53854dea2d",
+                "requestBody": {
+                    "description": "Pesan pengguna dan riwayat percakapan",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "message"
+                                ],
+                                "properties": {
+                                    "message": {
+                                        "description": "Pesan / pertanyaan dari pengguna",
+                                        "type": "string",
+                                        "example": "Ada buku tentang sistem navigasi pesawat?",
+                                        "maxLength": 1000
+                                    },
+                                    "history": {
+                                        "description": "Riwayat percakapan sebelumnya (maks 10 pesan)",
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "role": {
+                                                    "type": "string",
+                                                    "example": "user",
+                                                    "enum": [
+                                                        "user",
+                                                        "assistant",
+                                                        "model"
+                                                    ]
+                                                },
+                                                "content": {
+                                                    "type": "string",
+                                                    "example": "Halo, saya butuh bantuan",
+                                                    "maxLength": 2000
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Chatbot berhasil membalas pesan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "📚 **Buku ditemukan**\n\n**Judul** : Sistem Navigasi Udara\n**Nomor Panggil** : 629.13\n**Lokasi Rak** : Rak A-5\n**Status** : ✅ Tersedia"
+                                        },
+                                        "source": {
+                                            "description": "Sumber jawaban: dataset lokal Senayan atau Gemini AI",
+                                            "type": "string",
+                                            "example": "gemini_ai",
+                                            "enum": [
+                                                "senayan_dataset",
+                                                "gemini_ai"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validasi gagal (pesan kosong atau terlalu panjang)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "Gemini API tidak tersedia atau konfigurasi belum ada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BookResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Pengantar Teknik Penerbangan"
+                    },
+                    "author": {
+                        "type": "string",
+                        "example": "Budi Santoso"
+                    },
+                    "isbn": {
+                        "type": "string",
+                        "example": "978-602-123-456-7",
+                        "nullable": true
+                    },
+                    "publisher": {
+                        "type": "string",
+                        "example": "Gramedia",
+                        "nullable": true
+                    },
+                    "year": {
+                        "type": "integer",
+                        "example": 2020,
+                        "nullable": true
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "example": 350,
+                        "nullable": true
+                    },
+                    "language": {
+                        "type": "string",
+                        "example": "Indonesia",
+                        "nullable": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Buku pengantar ilmu teknik penerbangan...",
+                        "nullable": true
+                    },
+                    "location": {
+                        "type": "string",
+                        "example": "Rak A-12",
+                        "nullable": true
+                    },
+                    "stock": {
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "available",
+                        "enum": [
+                            "available",
+                            "borrowed",
+                            "maintenance",
+                            "lost"
+                        ]
+                    },
+                    "category_id": {
+                        "type": "integer",
+                        "example": 2,
+                        "nullable": true
+                    },
+                    "subjects": {
+                        "type": "string",
+                        "example": "Penerbangan, Avionik",
+                        "nullable": true
+                    },
+                    "call_number": {
+                        "type": "string",
+                        "example": "629.13 BUD p",
+                        "nullable": true
+                    },
+                    "gmd_name": {
+                        "type": "string",
+                        "example": "Text",
+                        "nullable": true
+                    },
+                    "cover_image": {
+                        "type": "string",
+                        "example": "covers/book1.jpg",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "CategoryResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Teknologi & Teknik"
+                    },
+                    "code": {
+                        "type": "string",
+                        "example": "TEKNOLOGI-TEKNIK"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Buku-buku teknik dan teknologi terapan",
+                        "nullable": true
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "books_count": {
+                        "type": "integer",
+                        "example": 142
+                    }
+                },
+                "type": "object"
+            },
+            "ErrorResponse": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "error"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Pesan error di sini"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "Masukkan token Bearer untuk akses endpoint yang memerlukan autentikasi",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Books",
+            "description": "Operasi terkait koleksi buku perpustakaan"
+        },
+        {
+            "name": "Categories",
+            "description": "Operasi terkait kategori / klasifikasi buku"
+        },
+        {
+            "name": "Chatbot",
+            "description": "Layanan chatbot AI berbasis Google Gemini untuk referensi buku"
+        },
+        {
+            "name": "Authentication",
+            "description": "Authentication"
+        }
+    ]
+}
